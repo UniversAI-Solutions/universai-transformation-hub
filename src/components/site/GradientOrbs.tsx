@@ -18,28 +18,33 @@ export function GradientOrbs() {
 }
 
 export function FloatingSquares() {
-  // Mimics the floating glowing squares from the brand graphic
+  // Subtle floating + breathing scale — present, never distracting
+  const squares = [
+    { size: 110, top: "12%", right: "6%", delay: "0s", dur: "9s" },
+    { size: 80, top: "30%", right: "22%", delay: "1.5s", dur: "11s" },
+    { size: 140, top: "50%", right: "10%", delay: "0.8s", dur: "13s" },
+    { size: 180, top: "70%", right: "18%", delay: "2.2s", dur: "15s" },
+    { size: 90, top: "20%", left: "8%", delay: "1s", dur: "12s" },
+    { size: 130, top: "65%", left: "4%", delay: "2.6s", dur: "14s" },
+  ];
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {[
-        { size: 110, top: "12%", right: "6%", delay: "0s" },
-        { size: 80, top: "30%", right: "22%", delay: "1.5s" },
-        { size: 140, top: "50%", right: "10%", delay: "0.8s" },
-        { size: 180, top: "70%", right: "18%", delay: "2.2s" },
-      ].map((s, i) => (
+      {squares.map((s, i) => (
         <div
           key={i}
-          className="absolute rounded-2xl animate-float"
+          className="absolute rounded-2xl animate-cube"
           style={{
             width: s.size,
             height: s.size,
             top: s.top,
             right: s.right,
+            left: (s as any).left,
             animationDelay: s.delay,
+            animationDuration: s.dur,
             background:
               "radial-gradient(circle at 50% 50%, oklch(0.16 0.05 255) 30%, oklch(0.55 0.22 260 / 60%) 70%, oklch(0.7 0.2 250 / 30%) 100%)",
             border: "1px solid oklch(0.7 0.2 250 / 40%)",
-            boxShadow: "0 0 60px oklch(0.6 0.22 255 / 50%), inset 0 0 40px oklch(0.16 0.05 255)",
+            boxShadow: "0 0 60px oklch(0.6 0.22 255 / 40%), inset 0 0 40px oklch(0.16 0.05 255)",
           }}
         />
       ))}
