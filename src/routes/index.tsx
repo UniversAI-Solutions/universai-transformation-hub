@@ -1,9 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowRight, Sparkles, Workflow, Infinity as InfinityIcon, CheckCircle2, ChevronDown } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { GradientOrbs, FloatingSquares } from "@/components/site/GradientOrbs";
 import { CTAButton } from "@/components/site/CTAButton";
+import { ScrollActiveText } from "@/components/site/ScrollActiveText";
+import { CASE_LIST } from "@/data/case-studies";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,18 +29,24 @@ const STEPS = [
     title: "Discover",
     body: "We audit your business, understand how work really happens, and identify the problems where AI can create the biggest impact. No guessing — only what's worth building.",
     icon: Sparkles,
+    href: "/services",
+    hash: "discover",
   },
   {
     n: "02",
     title: "Implement",
     body: "We advise the right intervention, then build and deploy the solution using custom development or proven tools — refined with feedback from real workflows.",
     icon: Workflow,
+    href: "/services",
+    hash: "implement",
   },
   {
     n: "03",
     title: "Partner",
     body: "We monitor, maintain, and manage the systems we build so AI becomes part of how your business runs — long after launch.",
     icon: InfinityIcon,
+    href: "/services",
+    hash: "partner",
   },
 ];
 
@@ -139,26 +147,31 @@ function Hero() {
 
 function ProblemSection() {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-40 overflow-hidden">
       <div className="absolute inset-0 grain pointer-events-none" />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-25 blur-[150px]"
         style={{ background: "radial-gradient(circle, oklch(0.5 0.22 260), transparent 70%)" }}
       />
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
-        <p className="font-display text-3xl md:text-5xl font-light leading-tight text-foreground/90 mb-8">
-          You bought the AI tools. Read the case studies. Ran the pilots.
-        </p>
-        <p className="font-display text-3xl md:text-5xl font-light leading-tight text-muted-foreground/70 mb-8">
-          But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.
-        </p>
-        <p className="font-display text-2xl md:text-3xl font-light text-muted-foreground/60 mb-12">
-          You're not behind. You're just stuck where everyone gets stuck.
-        </p>
-        <p className="font-display text-3xl md:text-5xl">
-          That's why we built <span className="text-gradient font-medium">UniversAI</span>.
-        </p>
+      <div className="relative max-w-4xl mx-auto px-6 text-center min-h-[80vh] flex flex-col justify-center">
+        <ScrollActiveText
+          className="space-y-2"
+          lines={[
+            { text: "You bought the AI tools. Read the case studies. Ran the pilots." },
+            {
+              text: "But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.",
+            },
+            { text: "You're not behind. You're just stuck where everyone gets stuck.", size: "md" },
+            {
+              text: (
+                <>
+                  That's why we built <span className="text-gradient font-medium">UniversAI</span>.
+                </>
+              ),
+            },
+          ]}
+        />
       </div>
     </section>
   );
