@@ -29,19 +29,19 @@ const STATS = [
 const FOUNDERS = [
   {
     name: "Francis-Alfred Michaelangelo Ifeanyichukwu",
-    role: "Founder · Lead AI Engineer",
+    role: "Lead AI Consultant",
     image: michaelangeloImg,
     bio: "Michaelangelo leads AI solution design and machine learning development, with a strong background in computer engineering, data science, and applied AI systems. He focuses on building intelligent products that solve real business problems.",
   },
   {
     name: "Eso Olabode John",
-    role: "Lead Data Engineer",
+    role: "Lead Technical Engineer",
     image: olabodeImg,
     bio: "Olabode builds the data foundations behind UniversAI's systems. His expertise spans backend development, data analysis, SQL, Python, and scalable architectures that support AI-driven operations.",
   },
   {
     name: "Jane Orih Ijeoma",
-    role: "Lead MLOps Engineer",
+    role: "Lead MLOps Engineer · Operations Lead",
     image: janeImg,
     bio: "Jane ensures AI systems move smoothly from development to deployment. She focuses on machine learning operations, system design, and the reliable delivery of AI solutions teams can use in practice.",
   },
@@ -91,7 +91,7 @@ function TeamPage() {
       <section className="relative py-32">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
           <div className="order-2 lg:order-1">
-            <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-4">Founder · Lead AI Engineer</p>
+            <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-4">Lead AI Consultant</p>
             <h2 className="font-display text-4xl md:text-6xl font-light mb-6">
               Francis-Alfred <span className="text-gradient">Michaelangelo</span> Ifeanyichukwu
             </h2>
