@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, Wrench, Repeat, ArrowUpRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { GradientOrbs } from "@/components/site/GradientOrbs";
@@ -77,6 +77,22 @@ const PHASES = [
 function ServicesPage() {
   const [active, setActive] = useState("discover");
 
+  useEffect(() => {
+    const sync = () => {
+      const h = window.location.hash.replace("#", "");
+      if (h && PHASES.some((p) => p.id === h)) {
+        setActive(h);
+        // small delay to let tab swap before scroll
+        setTimeout(() => {
+          document.getElementById("phases")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 50);
+      }
+    };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+
   const activePhase = PHASES.find((p) => p.id === active)!;
 
   return (
@@ -99,7 +115,7 @@ function ServicesPage() {
       </section>
 
       {/* Phase tabs */}
-      <section className="relative pb-32">
+      <section id="phases" className="relative pb-32 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex items-center justify-center flex-wrap gap-2 md:gap-12 mb-12">
             {PHASES.map((p) => {
