@@ -280,24 +280,6 @@ function StatsMarquee() {
 }
 
 function CaseStudies() {
-  const cards = [
-    {
-      tag: "AI Hiring Automation",
-      title: "Streamlining CV screening and role matching to make hiring faster and more efficient.",
-      gradient: "from-blue-500/30 to-indigo-600/30",
-    },
-    {
-      tag: "AI Budgeting & Planning",
-      title: "Improving forecasting and reporting for stronger financial planning and monitoring.",
-      gradient: "from-cyan-500/30 to-blue-600/30",
-    },
-    {
-      tag: "AI Learning Systems",
-      title: "Adaptive content generation and delivery for modern e-learning platforms.",
-      gradient: "from-indigo-500/30 to-purple-600/30",
-    },
-  ];
-
   return (
     <section className="relative py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -308,22 +290,37 @@ function CaseStudies() {
             <span className="text-gradient">real business functions</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
-            From hiring and finance to education, healthcare, and consumer insight —
-            we apply AI where it actually moves the needle.
+            From hiring and finance to education — we apply AI where it actually moves the needle.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {cards.map((c, i) => (
-            <div
-              key={i}
-              className="group relative rounded-3xl overflow-hidden border border-border h-[420px] cursor-pointer transition-transform hover:-translate-y-2"
+          {CASE_LIST.map((c) => (
+            <Link
+              key={c.slug}
+              to="/case-studies/$slug"
+              params={{ slug: c.slug }}
+              className="group relative rounded-3xl overflow-hidden border border-border h-[440px] transition-transform hover:-translate-y-2"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${c.gradient}`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+              <img
+                src={c.image}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
               <div
-                className="absolute inset-0 opacity-50 group-hover:opacity-80 transition-opacity"
-                style={{ background: "radial-gradient(circle at 50% 30%, oklch(0.6 0.22 250 / 50%), transparent 70%)" }}
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, oklch(0.16 0.05 255 / 30%) 0%, oklch(0.16 0.05 255 / 60%) 55%, oklch(0.13 0.06 255 / 95%) 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 opacity-50 mix-blend-color"
+                style={{ background: "oklch(0.25 0.18 260 / 60%)" }}
+              />
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: "radial-gradient(circle at 50% 30%, oklch(0.6 0.22 250 / 35%), transparent 70%)" }}
               />
               <div className="relative h-full flex flex-col justify-end p-8">
                 <span className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-3">Case Study</span>
@@ -333,8 +330,12 @@ function CaseStudies() {
                   Read more <ArrowRight className="h-3 w-3" />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-14">
+          <CTAButton to="/case-studies">View Case Studies</CTAButton>
         </div>
       </div>
     </section>
