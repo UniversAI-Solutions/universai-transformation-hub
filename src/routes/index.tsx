@@ -197,8 +197,10 @@ function ProcessSection() {
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
-              <div
+              <Link
                 key={step.n}
+                to={step.href}
+                hash={step.hash}
                 className="group relative rounded-3xl bg-card-gradient border border-border p-8 transition-all duration-500 hover:border-primary-glow/50 hover:-translate-y-2 hover:shadow-[0_30px_80px_-20px_oklch(0.5_0.22_260/40%)]"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
@@ -213,7 +215,7 @@ function ProcessSection() {
                 <div className="inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-primary-glow group-hover:gap-3 transition-all">
                   Learn more <ArrowRight className="h-3 w-3" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
