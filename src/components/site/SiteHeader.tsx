@@ -30,18 +30,13 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden md:flex items-center gap-10">
-          <Link
-            to="/services"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            activeProps={{ className: "text-foreground" }}
-          >
+          <Link to="/services" className="text-sm text-muted-foreground hover:text-foreground transition-colors" activeProps={{ className: "text-foreground" }}>
             Services
           </Link>
-          <Link
-            to="/team"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            activeProps={{ className: "text-foreground" }}
-          >
+          <Link to="/case-studies" className="text-sm text-muted-foreground hover:text-foreground transition-colors" activeProps={{ className: "text-foreground" }}>
+            Case Studies
+          </Link>
+          <Link to="/team" className="text-sm text-muted-foreground hover:text-foreground transition-colors" activeProps={{ className: "text-foreground" }}>
             Team
           </Link>
           <Link
@@ -68,6 +63,7 @@ export function SiteHeader() {
         <div className="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border animate-fade-in">
           <div className="px-6 py-6 flex flex-col gap-5">
             <Link to="/services" onClick={() => setOpen(false)} className="text-foreground">Services</Link>
+            <Link to="/case-studies" onClick={() => setOpen(false)} className="text-foreground">Case Studies</Link>
             <Link to="/team" onClick={() => setOpen(false)} className="text-foreground">Team</Link>
             <Link
               to="/work-with-us"

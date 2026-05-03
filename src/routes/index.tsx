@@ -1,9 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useRef, useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ArrowRight, Sparkles, Workflow, Infinity as InfinityIcon, CheckCircle2, ChevronDown } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { GradientOrbs, FloatingSquares } from "@/components/site/GradientOrbs";
 import { CTAButton } from "@/components/site/CTAButton";
+import { ScrollActiveText } from "@/components/site/ScrollActiveText";
+import { CASE_LIST } from "@/data/case-studies";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,18 +29,24 @@ const STEPS = [
     title: "Discover",
     body: "We audit your business, understand how work really happens, and identify the problems where AI can create the biggest impact. No guessing — only what's worth building.",
     icon: Sparkles,
+    href: "/services",
+    hash: "discover",
   },
   {
     n: "02",
     title: "Implement",
     body: "We advise the right intervention, then build and deploy the solution using custom development or proven tools — refined with feedback from real workflows.",
     icon: Workflow,
+    href: "/services",
+    hash: "implement",
   },
   {
     n: "03",
     title: "Partner",
     body: "We monitor, maintain, and manage the systems we build so AI becomes part of how your business runs — long after launch.",
     icon: InfinityIcon,
+    href: "/services",
+    hash: "partner",
   },
 ];
 
@@ -139,26 +147,31 @@ function Hero() {
 
 function ProblemSection() {
   return (
-    <section className="relative py-32 overflow-hidden">
+    <section className="relative py-40 overflow-hidden">
       <div className="absolute inset-0 grain pointer-events-none" />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-25 blur-[150px]"
         style={{ background: "radial-gradient(circle, oklch(0.5 0.22 260), transparent 70%)" }}
       />
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
-        <p className="font-display text-3xl md:text-5xl font-light leading-tight text-foreground/90 mb-8">
-          You bought the AI tools. Read the case studies. Ran the pilots.
-        </p>
-        <p className="font-display text-3xl md:text-5xl font-light leading-tight text-muted-foreground/70 mb-8">
-          But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.
-        </p>
-        <p className="font-display text-2xl md:text-3xl font-light text-muted-foreground/60 mb-12">
-          You're not behind. You're just stuck where everyone gets stuck.
-        </p>
-        <p className="font-display text-3xl md:text-5xl">
-          That's why we built <span className="text-gradient font-medium">UniversAI</span>.
-        </p>
+      <div className="relative max-w-4xl mx-auto px-6 text-center min-h-[80vh] flex flex-col justify-center">
+        <ScrollActiveText
+          className="space-y-2"
+          lines={[
+            { text: "You bought the AI tools. Read the case studies. Ran the pilots." },
+            {
+              text: "But months later, the tools sit unused. The pilots never scaled. And nobody can explain what ROI actually looks like.",
+            },
+            { text: "You're not behind. You're just stuck where everyone gets stuck.", size: "md" },
+            {
+              text: (
+                <>
+                  That's why we built <span className="text-gradient font-medium">UniversAI</span>.
+                </>
+              ),
+            },
+          ]}
+        />
       </div>
     </section>
   );
@@ -184,8 +197,10 @@ function ProcessSection() {
           {STEPS.map((step, i) => {
             const Icon = step.icon;
             return (
-              <div
+              <Link
                 key={step.n}
+                to={step.href}
+                hash={step.hash}
                 className="group relative rounded-3xl bg-card-gradient border border-border p-8 transition-all duration-500 hover:border-primary-glow/50 hover:-translate-y-2 hover:shadow-[0_30px_80px_-20px_oklch(0.5_0.22_260/40%)]"
                 style={{ animationDelay: `${i * 0.15}s` }}
               >
@@ -200,7 +215,7 @@ function ProcessSection() {
                 <div className="inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-primary-glow group-hover:gap-3 transition-all">
                   Learn more <ArrowRight className="h-3 w-3" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -265,24 +280,6 @@ function StatsMarquee() {
 }
 
 function CaseStudies() {
-  const cards = [
-    {
-      tag: "AI Hiring Automation",
-      title: "Streamlining CV screening and role matching to make hiring faster and more efficient.",
-      gradient: "from-blue-500/30 to-indigo-600/30",
-    },
-    {
-      tag: "AI Budgeting & Planning",
-      title: "Improving forecasting and reporting for stronger financial planning and monitoring.",
-      gradient: "from-cyan-500/30 to-blue-600/30",
-    },
-    {
-      tag: "AI Learning Systems",
-      title: "Adaptive content generation and delivery for modern e-learning platforms.",
-      gradient: "from-indigo-500/30 to-purple-600/30",
-    },
-  ];
-
   return (
     <section className="relative py-32">
       <div className="max-w-7xl mx-auto px-6">
@@ -293,22 +290,37 @@ function CaseStudies() {
             <span className="text-gradient">real business functions</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground max-w-3xl mx-auto">
-            From hiring and finance to education, healthcare, and consumer insight —
-            we apply AI where it actually moves the needle.
+            From hiring and finance to education — we apply AI where it actually moves the needle.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {cards.map((c, i) => (
-            <div
-              key={i}
-              className="group relative rounded-3xl overflow-hidden border border-border h-[420px] cursor-pointer transition-transform hover:-translate-y-2"
+          {CASE_LIST.map((c) => (
+            <Link
+              key={c.slug}
+              to="/case-studies/$slug"
+              params={{ slug: c.slug }}
+              className="group relative rounded-3xl overflow-hidden border border-border h-[440px] transition-transform hover:-translate-y-2"
             >
-              <div className={`absolute inset-0 bg-gradient-to-br ${c.gradient}`} />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+              <img
+                src={c.image}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
               <div
-                className="absolute inset-0 opacity-50 group-hover:opacity-80 transition-opacity"
-                style={{ background: "radial-gradient(circle at 50% 30%, oklch(0.6 0.22 250 / 50%), transparent 70%)" }}
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(180deg, oklch(0.16 0.05 255 / 30%) 0%, oklch(0.16 0.05 255 / 60%) 55%, oklch(0.13 0.06 255 / 95%) 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 opacity-50 mix-blend-color"
+                style={{ background: "oklch(0.25 0.18 260 / 60%)" }}
+              />
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                style={{ background: "radial-gradient(circle at 50% 30%, oklch(0.6 0.22 250 / 35%), transparent 70%)" }}
               />
               <div className="relative h-full flex flex-col justify-end p-8">
                 <span className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-3">Case Study</span>
@@ -318,8 +330,12 @@ function CaseStudies() {
                   Read more <ArrowRight className="h-3 w-3" />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
+        </div>
+
+        <div className="flex justify-center mt-14">
+          <CTAButton to="/case-studies">View Case Studies</CTAButton>
         </div>
       </div>
     </section>

@@ -43,6 +43,7 @@
   --animate-marquee: marquee 40s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
   --animate-shimmer: shimmer 3s linear infinite;
+  --animate-cube: cube-breathe 12s ease-in-out infinite;
 }
 
 :root {
