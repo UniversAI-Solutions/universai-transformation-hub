@@ -57,14 +57,19 @@ export function WorkWithUsPage() {
       formData.append("Core Systems", systems || "Not specified");
       formData.append("Operational Friction / Bottleneck", bottleneck);
 
-      // 570d34a16d0839a6b361eece12da1a97 is the verified FormSubmit token for inquiries.desk@universaisolutions.com
-      await fetch("https://formsubmit.co/ajax/570d34a16d0839a6b361eece12da1a97", {
+      // FormSubmit endpoint targeting the verified inquiries inbox
+      const res = await fetch("https://formsubmit.co/ajax/inquiries.desk@universaisolutions.com", {
         method: "POST",
         body: formData,
         headers: {
           Accept: "application/json",
         },
       });
+
+      const data = await res.json().catch(() => null);
+      if (data && data.success === "false") {
+        console.warn("FormSubmit notice:", data.message);
+      }
     } catch (err) {
       console.warn("Direct form email submission fallback:", err);
     } finally {
