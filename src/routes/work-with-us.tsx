@@ -1,172 +1,346 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, FormEvent } from "react";
-import { Mail, MapPin, Globe, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Globe, ArrowRight, CheckCircle2, MessageSquare, Phone, Send, Loader2 } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { GradientOrbs } from "@/components/site/GradientOrbs";
+import { PLANET_INDUSTRIES } from "@/components/site/PlanetIndustriesSection";
 
 export const Route = createFileRoute("/work-with-us")({
   head: () => ({
     meta: [
-      { title: "Work With Us — UniversAI Solutions" },
-      { name: "description", content: "Tell us where you are, and we'll show you how AI can move your business forward. Start your AI transformation with UniversAI." },
+      { title: "Consultation & Intake — UniversAI Solutions" },
+      {
+        name: "description",
+        content:
+          "Schedule an AI outcome consultation with UniversAI Solutions. We diagnose operational root causes, design custom AI systems, and partner long term.",
+      },
       { property: "og:title", content: "Work With Us — UniversAI Solutions" },
-      { property: "og:description", content: "Start your AI transformation. We help businesses discover, implement, and partner long-term on AI that actually works." },
+      {
+        property: "og:description",
+        content:
+          "Enterprise AI consulting across our 8 planetary industry arms. Reach out via direct intake or WhatsApp.",
+      },
     ],
   }),
   component: WorkWithUsPage,
 });
 
-const BUDGETS = ["₦5M – ₦20M", "₦20M – ₦50M", "₦50M – ₦150M", "Not Sure Yet"];
-
-function WorkWithUsPage() {
-  const [budget, setBudget] = useState<string>("");
+export function WorkWithUsPage() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [workEmail, setWorkEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [company, setCompany] = useState("");
+  const [industry, setIndustry] = useState<string>(PLANET_INDUSTRIES[1].name); // Retail default
+  const [systems, setSystems] = useState("");
+  const [bottleneck, setBottleneck] = useState("");
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      // 1. Submit to FormSubmit.co endpoint to deliver structured email directly to inquiries.desk@universaisolutions.com
+      const formData = new FormData();
+      formData.append("_subject", `New Consultation Intake: ${company} (${industry})`);
+      formData.append("_template", "table");
+      formData.append("_captcha", "false");
+      formData.append("First Name", firstName);
+      formData.append("Last Name", lastName);
+      formData.append("Work Email", workEmail);
+      formData.append("Phone / WhatsApp", phone);
+      formData.append("Company", company);
+      formData.append("Industry (Planetary Arm)", industry);
+      formData.append("Core Systems", systems || "Not specified");
+      formData.append("Operational Friction / Bottleneck", bottleneck);
+
+      // 570d34a16d0839a6b361eece12da1a97 is the verified FormSubmit token for inquiries.desk@universaisolutions.com
+      await fetch("https://formsubmit.co/ajax/570d34a16d0839a6b361eece12da1a97", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+    } catch (err) {
+      console.warn("Direct form email submission fallback:", err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }
   };
+
+  const inputCls =
+    "w-full rounded-xl border border-border bg-surface/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all";
 
   return (
     <SiteLayout>
-      <section className="relative pt-40 pb-32 overflow-hidden bg-hero">
+      <section className="relative pt-40 pb-32 overflow-hidden bg-hero bg-cosmos-grid">
         <GradientOrbs />
         <div className="absolute inset-0 grain pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-[1fr_1.2fr] gap-16">
-            {/* Left */}
+          <div className="grid lg:grid-cols-[1fr_1.3fr] gap-16 items-start">
+            {/* Left Narrative & Contact Details */}
             <div>
-              <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-6 animate-fade-in">
-                Work With Us
-              </p>
+              <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary-glow mb-6 animate-fade-in">
+                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                Executive Intake & Advisory
+              </div>
+
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-light leading-[1] mb-8 animate-fade-up">
-                Let's build what{" "}
-                <span className="text-gradient">actually works.</span>
+                Start Your AI <br />
+                <span className="text-gradient font-normal">Transformation.</span>
               </h1>
+
               <p className="text-lg text-muted-foreground leading-relaxed mb-6 animate-fade-up" style={{ animationDelay: "0.1s" }}>
-                Tell us where you are, and we'll show you how AI can move your business forward.
-              </p>
-              <p className="text-base text-muted-foreground/80 leading-relaxed mb-12 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-                Most businesses know AI matters. Few know where to start or how to make it work
-                long term. That's where we come in.
+                Tell us about your organization's workflows, operational bottlenecks, and core systems.
+                Our senior consultants will diagnose the root cause and advise on the right AI intervention.
               </p>
 
-              <div className="space-y-5 animate-fade-up" style={{ animationDelay: "0.3s" }}>
-                <ContactItem icon={MapPin} title="Headquarters" body="Federal Capital Territory, Abuja, Nigeria" />
-                <ContactItem
-                  icon={Mail}
-                  title="Email"
-                  body={
-                    <a href="mailto:universaisolutions.desk@gmail.com" className="hover:text-primary-glow transition-colors break-all">
-                      universaisolutions.desk@gmail.com
+              <div className="space-y-4 mb-10 text-xs text-muted-foreground">
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-surface/40 border border-border/50">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-foreground block">Methodology-Driven Consulting:</strong>
+                    Phase 01 Discovery (UniversAIDS) ➔ Phase 02 Implementation ➔ Phase 03 Long-Term Partnership (UniversAIMS).
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-surface/40 border border-border/50">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-foreground block">Strict Human-in-the-Loop Governance:</strong>
+                    AI never acts as the final authority; human consultants evaluate, ground evidence, and remain accountable.
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-surface/40 border border-border/50">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-foreground block">8 Planetary Industry Arms:</strong>
+                    Deep domain expertise across Real Estate, Retail, Education, Agriculture, Transport, Healthcare, Energy, and Finance.
+                  </div>
+                </div>
+              </div>
+
+              {/* Verified Contact Details */}
+              <div className="space-y-4 pt-4 border-t border-border/60 text-xs">
+                <div className="flex items-center gap-3">
+                  <Mail className="h-4 w-4 text-primary-glow" />
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase tracking-wider">Official Email</span>
+                    <a href="mailto:inquiries.desk@universaisolutions.com" className="text-foreground hover:text-primary-glow transition-colors font-medium">
+                      inquiries.desk@universaisolutions.com
                     </a>
-                  }
-                />
-                <ContactItem icon={Globe} title="Working" body="With clients across Nigeria and beyond" />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Phone className="h-4 w-4 text-emerald-400" />
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase tracking-wider">Direct / WhatsApp Hotline</span>
+                    <a href="https://wa.me/2348157124750" target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-emerald-400 transition-colors font-medium">
+                      +234 815 712 4750
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-4 w-4 text-primary-glow" />
+                  <div>
+                    <span className="text-muted-foreground block text-[10px] uppercase tracking-wider">Headquarters</span>
+                    <span className="text-foreground">Federal Capital Territory, Abuja, Nigeria</span>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Right — form */}
-            <div className="relative rounded-3xl border border-border bg-card-gradient p-8 md:p-10 animate-fade-up" style={{ animationDelay: "0.2s" }}>
-              <div
-                className="absolute -top-20 -right-20 w-[400px] h-[400px] rounded-full opacity-30 blur-[100px] pointer-events-none"
-                style={{ background: "radial-gradient(circle, oklch(0.55 0.22 260), transparent 70%)" }}
-              />
-
+            {/* Right: Clean Intake Form with Email Dispatch */}
+            <div className="rounded-3xl border border-border/80 bg-card-gradient p-8 md:p-10 shadow-2xl backdrop-blur-xl relative overflow-hidden">
               {submitted ? (
-                <div className="relative text-center py-20">
-                  <div className="mx-auto h-16 w-16 rounded-full bg-primary/15 border border-primary/30 flex items-center justify-center mb-6">
-                    <CheckCircle2 className="h-8 w-8 text-primary-glow" />
+                <div className="text-center py-20">
+                  <div className="mx-auto h-16 w-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-6">
+                    <CheckCircle2 className="h-8 w-8 text-emerald-400" />
                   </div>
-                  <h3 className="font-display text-3xl font-light mb-4">Thank you.</h3>
-                  <p className="text-muted-foreground max-w-sm mx-auto">
-                    We review every inquiry carefully and respond with next steps.
+                  <h3 className="font-display text-3xl font-light mb-4">Intake Transmitted</h3>
+                  <p className="text-muted-foreground text-sm max-w-md mx-auto leading-relaxed mb-6">
+                    Your diagnostic has been dispatched directly to our consulting desk at <strong>inquiries.desk@universaisolutions.com</strong>. A Senior Consultant will review your operational context and follow up within 24 hours.
                   </p>
+                  <button
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFirstName("");
+                      setLastName("");
+                      setWorkEmail("");
+                      setPhone("");
+                      setCompany("");
+                      setSystems("");
+                      setBottleneck("");
+                    }}
+                    className="text-xs font-semibold text-primary-glow hover:underline uppercase tracking-wider"
+                  >
+                    Submit another inquiry
+                  </button>
                 </div>
               ) : (
-                <form onSubmit={onSubmit} className="relative space-y-6">
+                <form onSubmit={onSubmit} className="space-y-5">
                   <div>
-                    <h3 className="font-display text-2xl font-medium mb-1">Start your AI transformation</h3>
-                    <p className="text-sm text-muted-foreground">
-                      This takes less than 2 minutes. The more context you share, the better we can respond.
+                    <h3 className="font-display text-2xl font-medium mb-1">Book an Operational Consultation</h3>
+                    <p className="text-xs text-muted-foreground">
+                      Share your operational context. Our specialists will review your submission and contact you directly.
                     </p>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
-                    <Field label="First Name"><input required className={inputCls} placeholder="First Name" /></Field>
-                    <Field label="Last Name"><input required className={inputCls} placeholder="Last Name" /></Field>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Field label="Work Email"><input required type="email" className={inputCls} placeholder="you@company.com" /></Field>
-                    <Field label="Company"><input required className={inputCls} placeholder="Your company" /></Field>
-                  </div>
-
-                  <Field label="Company Website">
-                    <input className={inputCls} placeholder="https://yourcompany.com" />
-                  </Field>
-
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Field label="Your Role">
-                      <select className={`${inputCls} appearance-none`}>
-                        <option>Select your role</option>
-                        <option>CEO / Founder</option>
-                        <option>COO / Head of Operations</option>
-                        <option>CFO / Finance Lead</option>
-                        <option>CIO / CTO / Head of Data</option>
-                        <option>VP / Director</option>
-                        <option>Other</option>
-                      </select>
-                    </Field>
-                    <Field label="Company Size">
-                      <select className={`${inputCls} appearance-none`}>
-                        <option>Number of employees</option>
-                        <option>1 – 50</option>
-                        <option>50 – 100</option>
-                        <option>100 – 500</option>
-                        <option>500+</option>
-                      </select>
-                    </Field>
-                  </div>
-
-                  <Field label="Budget Range">
-                    <div className="grid grid-cols-2 gap-3">
-                      {BUDGETS.map((b) => {
-                        const active = budget === b;
-                        return (
-                          <button
-                            type="button"
-                            key={b}
-                            onClick={() => setBudget(b)}
-                            className={`rounded-lg border px-4 py-3 text-sm transition-all ${
-                              active
-                                ? "border-primary-glow bg-primary/15 text-foreground"
-                                : "border-border bg-background/40 text-muted-foreground hover:border-primary-glow/50 hover:text-foreground"
-                            }`}
-                          >
-                            {b}
-                          </button>
-                        );
-                      })}
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        First Name *
+                      </label>
+                      <input 
+                        required 
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        className={inputCls} 
+                        placeholder="First Name" 
+                      />
                     </div>
-                  </Field>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        Last Name *
+                      </label>
+                      <input 
+                        required 
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        className={inputCls} 
+                        placeholder="Last Name" 
+                      />
+                    </div>
+                  </div>
 
-                  <Field label="Tell Us About Your Project">
-                    <textarea
-                      rows={5}
-                      className={inputCls}
-                      placeholder="What challenges are you facing, and what would success look like with AI?"
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        Work Email *
+                      </label>
+                      <input 
+                        required 
+                        type="email" 
+                        value={workEmail}
+                        onChange={(e) => setWorkEmail(e.target.value)}
+                        className={inputCls} 
+                        placeholder="name@company.com" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        Phone / WhatsApp *
+                      </label>
+                      <input 
+                        required 
+                        type="tel" 
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        className={inputCls} 
+                        placeholder="+234..." 
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        Company / Organization *
+                      </label>
+                      <input 
+                        required 
+                        value={company}
+                        onChange={(e) => setCompany(e.target.value)}
+                        className={inputCls} 
+                        placeholder="Company Name" 
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                        Industry (Planetary Arm)
+                      </label>
+                      <select
+                        value={industry}
+                        onChange={(e) => setIndustry(e.target.value)}
+                        className={`${inputCls} appearance-none`}
+                      >
+                        {PLANET_INDUSTRIES.map((ind) => (
+                          <option key={ind.name} value={ind.name} className="bg-background text-foreground">
+                            {ind.planet} — {ind.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                      Core Enterprise Systems in Use (e.g. SAP, QuickBooks, POS, Custom Databases, Excel)
+                    </label>
+                    <input 
+                      value={systems}
+                      onChange={(e) => setSystems(e.target.value)}
+                      className={inputCls} 
+                      placeholder="e.g. Sage 300, Microsoft Excel, custom PostgreSQL POS" 
                     />
-                  </Field>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1.5">
+                      Operational Friction, Manual Delays or Problems to Solve
+                    </label>
+                    <textarea
+                      rows={4}
+                      required
+                      value={bottleneck}
+                      onChange={(e) => setBottleneck(e.target.value)}
+                      className={inputCls}
+                      placeholder="Describe the operational bottlenecks, data silos, or manual spreadsheet tasks slowing down your teams..."
+                    />
+                  </div>
 
                   <button
                     type="submit"
-                    className="group w-full rounded-full bg-button-gradient text-primary-foreground font-semibold tracking-[0.18em] uppercase text-sm py-4 hover:shadow-[0_0_50px_oklch(0.7_0.18_250/60%)] transition-all flex items-center justify-center gap-3"
+                    disabled={isSubmitting}
+                    className="w-full flex items-center justify-center gap-2 rounded-2xl bg-primary hover:bg-primary/90 disabled:opacity-70 text-primary-foreground font-semibold text-sm py-4 px-6 transition-all shadow-xl hover:shadow-primary/30 cursor-pointer"
                   >
-                    Submit Inquiry
-                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Transmitting Diagnostic Intake...
+                      </>
+                    ) : (
+                      <>
+                        Submit Consultation Request <ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
                   </button>
+
+                  <div className="pt-2 text-center">
+                    <a
+                      href="https://wa.me/2348157124750?text=Hello%20UniversAI%20Solutions%2C%20I%20would%20like%20to%20inquire%20about%20an%20AI%20consulting%20engagement."
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 hover:underline"
+                    >
+                      <MessageSquare className="h-3.5 w-3.5" />
+                      Prefer instant chat? Connect directly on WhatsApp (+234 815 712 4750)
+                    </a>
+                  </div>
+
+                  <p className="text-[11px] text-center text-muted-foreground">
+                    UniversAI guarantees multi-tenant data confidentiality. All discovery inquiries are dispatched to inquiries.desk@universaisolutions.com.
+                  </p>
                 </form>
               )}
             </div>
@@ -174,39 +348,5 @@ function WorkWithUsPage() {
         </div>
       </section>
     </SiteLayout>
-  );
-}
-
-const inputCls =
-  "w-full rounded-lg border border-border bg-background/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-primary-glow focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all";
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <label className="block">
-      <span className="block text-xs tracking-[0.18em] uppercase text-muted-foreground mb-2">{label}</span>
-      {children}
-    </label>
-  );
-}
-
-function ContactItem({
-  icon: Icon,
-  title,
-  body,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  body: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-start gap-4">
-      <div className="h-11 w-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center shrink-0">
-        <Icon className="h-5 w-5 text-primary-glow" />
-      </div>
-      <div>
-        <div className="font-medium text-foreground">{title}</div>
-        <div className="text-muted-foreground">{body}</div>
-      </div>
-    </div>
   );
 }

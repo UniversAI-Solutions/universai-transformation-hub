@@ -245,18 +245,24 @@ export const CASE_LIST = [
     slug: "ai-hiring-automation",
     tag: "AI Hiring Automation",
     title: "Scaling recruitment for a fast-growing Lagos tech company.",
+    summary:
+      "Automated candidate screening and recruitment workflows to eliminate bottlenecks and accelerate hiring velocity.",
     image: caseHiring,
   },
   {
     slug: "ai-budgeting-planning",
     tag: "AI Budgeting & Planning",
     title: "AI-driven forecasting for an Abuja public sector organization.",
+    summary:
+      "Replaced reactive spreadsheet reporting with proactive, predictive financial intelligence and scenario modeling.",
     image: caseBudget,
   },
   {
     slug: "ai-learning-systems",
     tag: "AI Learning Systems",
     title: "Adaptive learning for a Nigerian EdTech platform at scale.",
+    summary:
+      "Personalized student pathways and automated learning material generation without expanding content headcount.",
     image: caseLearning,
   },
 ];

@@ -1,231 +1,319 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Search, Wrench, Repeat, ArrowUpRight } from "lucide-react";
+import { 
+  Search, 
+  Wrench, 
+  Handshake, 
+  CheckCircle2, 
+  Network, 
+  Activity, 
+  GraduationCap, 
+  Sparkles,
+  ArrowRight
+} from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { GradientOrbs } from "@/components/site/GradientOrbs";
 import { CTAButton } from "@/components/site/CTAButton";
+import { AIMSFeatureMatrix } from "@/components/site/AIMSFeatureMatrix";
 
 export const Route = createFileRoute("/services")({
   head: () => ({
     meta: [
-      { title: "Services — UniversAI Solutions" },
-      { name: "description", content: "We help you discover, implement, and manage AI that actually delivers — through audits, strategy, design, deployment, and long-term operations." },
-      { property: "og:title", content: "Services — UniversAI Solutions" },
-      { property: "og:description", content: "From AI discovery & audits to implementation and long-term management — the full-cycle partner for AI transformation." },
+      { title: "Our 3-Phase Consulting Methodology — UniversAI Solutions" },
+      {
+        name: "description",
+        content:
+          "UniversAI Solutions' 3-phase consulting methodology: Phase 01 Discovery (powered by UniversAIDS), Phase 02 Implementation, and Phase 03 Partnership (powered by UniversAIMS).",
+      },
+      { property: "og:title", content: "Consulting Methodology & Services — UniversAI Solutions" },
+      {
+        property: "og:description",
+        content:
+          "We diagnose to discover root cause, build targeted custom AI solutions, and partner long term to ensure sustained client ROI.",
+      },
     ],
   }),
   component: ServicesPage,
 });
 
-const PHASES = [
+const SERVICE_PHASES = [
   {
-    id: "discover",
+    id: "discovery",
     n: "01",
-    title: "Discover",
-    tagline: "Clarity before code.",
-    icon: Search,
+    tag: "PHASE 01",
+    title: "Phase 01 — Discovery",
+    tagline: "We diagnose to discover root causes which direct us to the right AI solutions.",
+    poweredBy: "Powered by UniversAIDS (Univers-Artificial Intelligence Discovery System)",
     intro:
-      "Most AI projects fail before they begin because they solve the wrong problem. We start by understanding the business first.",
-    items: [
-      { t: "Operational Audit", d: "Map how work actually happens — where time is lost, decisions slow down, and manual effort piles up." },
-      { t: "Stakeholder & Workflow Interviews", d: "Speak with the people doing the work to uncover bottlenecks and hidden opportunities." },
-      { t: "AI Opportunity Mapping", d: "Identify and stack-rank high-impact AI use cases by value and effort." },
-      { t: "ROI Modeling & Business Case", d: "Pressure-test ideas early and focus only on what's worth the investment." },
-      { t: "AI Readiness Diagnostics", d: "A clear view of where you're ready now, what needs work, and what should wait." },
+      "Most AI initiatives fail because companies build software for symptoms instead of systemic root causes. In Phase 01, our consultants conduct in-depth operational audits across your departments, ingesting interviews, SOPs, and complex reconciliation spreadsheets into UniversAIDS to map organizational friction with mathematical evidence.",
+    capabilities: [
+      {
+        title: "Cross-Departmental Operational Audits",
+        desc: "Ingest and analyze process maps, departmental SOPs, and spreadsheet trackers to detect workarounds.",
+      },
+      {
+        title: "Stakeholder & Front-Line Discovery Interviews",
+        desc: "Structured qualitative discovery sessions with team leads to surface hidden operational friction.",
+      },
+      {
+        title: "Topological Friction & Bottleneck Mapping",
+        desc: "Leverage UniversAIDS to visualize inter-departmental dependencies, data silos, and systemic choke points.",
+      },
+      {
+        title: "KPI-Based Success & ROI Modeling",
+        desc: "Establish verified baseline metrics (cycle times, error rates, financial leakage) and forecast tangible ROI.",
+      },
+      {
+        title: "Targeted AI Solution Blueprint",
+        desc: "Deliver a boardroom-ready intervention roadmap specifying the exact custom AI systems needed.",
+      },
+      {
+        title: "Executive Readiness & Governance Advisory",
+        desc: "Advising C-suite leadership on sovereign data protocols, risk minimization, and change management.",
+      },
     ],
-    outcome: "You leave with a clear, practical roadmap for AI adoption.",
-    cta: "Start Discovery",
+    deliverables: [
+      "UniversAIDS Topological Friction Map",
+      "Executive ROI & Financial Payback Model",
+      "Targeted AI System Architecture Blueprint",
+      "Department Readiness & Risk Assessment",
+    ],
+    cta: "Schedule a Phase 01 Discovery Consultation",
   },
   {
-    id: "implement",
+    id: "implementation",
     n: "02",
-    title: "Implement",
-    tagline: "From insight to working systems.",
-    icon: Wrench,
+    tag: "PHASE 02",
+    title: "Phase 02 — Implementation",
+    tagline: "We engineer custom, enterprise-grade AI systems that integrate directly into your workflows.",
+    poweredBy: "Bespoke Multi-Agent Architecture, RAG & Native Core System Connectors",
     intro:
-      "Ideas don't create value. Execution does. We build AI systems that fit into how your business already works.",
-    items: [
-      { t: "Solution Design & Architecture", d: "Translate priorities into a clear build plan — scope, data flows, integrations, success criteria." },
-      { t: "Custom AI Development", d: "Build the right thing the right way — for reliability, security, and real-world performance." },
-      { t: "Tool Integration", d: "Embed AI into your existing stack so it fits naturally into how work already happens." },
-      { t: "Deployment & Iteration", d: "Launch into live operations, gather feedback, and harden what works into production." },
-      { t: "Performance & Cost Tuning", d: "Improve accuracy, latency, and cost efficiency before broad rollout." },
+      "Once root causes are diagnosed, our engineering team designs, builds, and deploys custom AI systems tailored specifically to your data ecosystem. We don't deploy generic wrappers; we build bespoke intelligent pipelines that integrate seamlessly with your ERP, POS, CRM, and internal databases.",
+    capabilities: [
+      {
+        title: "Custom LLM & Multi-Agent Development",
+        desc: "Domain-specific agentic pipelines, reasoning loops, and fine-tuned models engineered for high accuracy.",
+      },
+      {
+        title: "Enterprise RAG & Knowledge Automation",
+        desc: "Secure vector retrieval pipelines operating over contracts, regulatory filings, and complex company manuals.",
+      },
+      {
+        title: "Core Enterprise System Integration",
+        desc: "Bi-directional connectors for SAP, Microsoft Dynamics, Salesforce, Odoo, custom POS systems, and core banking rails.",
+      },
+      {
+        title: "Intelligent Workflow & Reconciler Automation",
+        desc: "Automated data extraction and cross-checking replacing manual multi-tab spreadsheet reconciliations.",
+      },
+      {
+        title: "Predictive Decision Support Engines",
+        desc: "Algorithmic intelligence for inventory replenishment, fraud triage, tenant scoring, and credit risk.",
+      },
+      {
+        title: "Computer Vision & OCR Document Pipelines",
+        desc: "Automated extraction and classification of physical waybills, receipts, invoices, and legal documentation.",
+      },
     ],
-    outcome: "You get systems that are built to perform in the real world.",
-    cta: "Build With Us",
+    deliverables: [
+      "Production-Ready Custom AI System",
+      "Bi-Directional ERP / POS / CRM Connectors",
+      "Rigorous Test Suites & Fallback Guardrails",
+      "Staff Operational UI & Workflow Dashboard",
+    ],
+    cta: "Inquire About Phase 02 Implementation",
   },
   {
-    id: "partner",
+    id: "partnership",
     n: "03",
-    title: "Partner",
-    tagline: "AI is not a one-time project.",
-    icon: Repeat,
+    tag: "PHASE 03",
+    title: "Phase 03 — Partnership",
+    tagline: "We partner long-term to ensure systems remain reliable, optimized, and delivering measurable ROI.",
+    poweredBy: "Powered by UniversAIMS (Univers-Artificial Intelligence Management System)",
     intro:
-      "Deployment is only the beginning. The real value comes from monitoring, maintenance, and continuous improvement.",
-    items: [
-      { t: "System Monitoring", d: "Track performance, accuracy, and usage continuously so issues are caught early." },
-      { t: "Maintenance & Updates", d: "Keep deployed solutions reliable as your data, tools, and workflows evolve." },
-      { t: "Workflow Optimization", d: "Refine and extend systems over time as the business grows and shifts." },
-      { t: "AI Operations Management", d: "We run the intelligence layer so your team can focus on running the business." },
-      { t: "Team Enablement", d: "Hands-on training so people use what's been built — confidently and well." },
+      "We believe deployment is only the beginning of value creation. In Phase 03, UniversAI acts as your dedicated long-term partner. We monitor and manage deployed systems using our proprietary UniversAIMS software, optimize token costs, conduct intensive team capacity building, and align ongoing performance with your business growth.",
+    capabilities: [
+      {
+        title: "24/7 AI Telemetry & Observability via UniversAIMS",
+        desc: "Continuous surveillance of inference uptime, response latency, semantic drift, and error spikes.",
+      },
+      {
+        title: "Team Training & Capacity Building",
+        desc: "Role-specific training cohorts and hands-on workshops ensuring your team adopts and masters the new systems.",
+      },
+      {
+        title: "Token Optimization & Quota Lifecycle Management",
+        desc: "Prompt caching and intelligent routing reducing API burn rates, alongside automated vendor re-subscription.",
+      },
+      {
+        title: "Drift Mitigation & Model Retraining",
+        desc: "Continuous model updates and tuning as your business patterns, customer queries, and products evolve.",
+      },
+      {
+        title: "Vendor Change & Upstream Deprecation Absorption",
+        desc: "Our engineers immediately handle upstream API changes, schema breakages, or vendor updates with zero client downtime.",
+      },
+      {
+        title: "Monthly Board-Grade KPI Reviews",
+        desc: "Regular executive strategy reviews reconciling audited time savings, cost reductions, and identifying new opportunities.",
+      },
     ],
-    outcome: "We stay with you so the system keeps delivering value long after launch.",
-    cta: "Scale With Us",
+    deliverables: [
+      "Live UniversAIMS Telemetry & Management Access",
+      "Front-Line Team Training Modules & Playbooks",
+      "Continuous Model Fine-Tuning & Patching",
+      "Monthly Executive ROI & Performance Statements",
+    ],
+    cta: "Discuss Long-Term Partnership Models",
   },
 ];
 
 function ServicesPage() {
-  const [active, setActive] = useState("discover");
+  const [activeTab, setActiveTab] = useState("discovery");
 
   useEffect(() => {
-    const sync = () => {
-      const h = window.location.hash.replace("#", "");
-      if (h && PHASES.some((p) => p.id === h)) {
-        setActive(h);
-        // small delay to let tab swap before scroll
+    const handleHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && SERVICE_PHASES.some((p) => p.id === hash)) {
+        setActiveTab(hash);
         setTimeout(() => {
-          document.getElementById("phases")?.scrollIntoView({ behavior: "smooth", block: "start" });
+          document.getElementById("phase-details")?.scrollIntoView({ behavior: "smooth", block: "start" });
         }, 50);
       }
     };
-    sync();
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
-  const activePhase = PHASES.find((p) => p.id === active)!;
+  const activePhase = SERVICE_PHASES.find((p) => p.id === activeTab) || SERVICE_PHASES[0];
 
   return (
     <SiteLayout>
       {/* Hero */}
-      <section className="relative pt-40 pb-24 overflow-hidden bg-hero">
+      <section className="relative pt-40 pb-20 overflow-hidden bg-hero text-center">
         <GradientOrbs />
         <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6 text-center">
-          <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-6 animate-fade-in">Services</p>
+        <div className="relative max-w-5xl mx-auto px-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 mb-6 animate-fade-in">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-primary-glow">
+              Consulting Methodology
+            </span>
+          </div>
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] mb-8 animate-fade-up">
-            From <span className="text-gradient">trying AI</span>
-            <br />
-            to <span className="text-gradient">trusting it.</span>
+            Diagnose. Build. <br />
+            <span className="text-gradient">Partner Long-Term.</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            We help you discover, implement, and manage AI that actually delivers.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-fade-up" style={{ animationDelay: "0.15s" }}>
+            We diagnose to discover the root cause, which directs us to the right AI solutions to intervene with. 
+            After engineering, we stick with and partner with our clients to ensure sustained, measurable ROI.
           </p>
         </div>
       </section>
 
-      {/* Phase tabs */}
-      <section id="phases" className="relative pb-32 scroll-mt-24">
+      {/* 3 Phases Selector */}
+      <section id="phase-details" className="relative pb-24 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="flex items-center justify-center flex-wrap gap-2 md:gap-12 mb-12">
-            {PHASES.map((p) => {
-              const isActive = active === p.id;
+          <div className="grid md:grid-cols-3 gap-4 mb-12">
+            {SERVICE_PHASES.map((p) => {
+              const isSelected = activeTab === p.id;
               return (
                 <button
                   key={p.id}
-                  onClick={() => setActive(p.id)}
-                  className="group flex items-baseline gap-3 px-4 py-2 transition-all"
+                  onClick={() => setActiveTab(p.id)}
+                  className={`p-6 rounded-3xl border text-left transition-all flex flex-col justify-between ${
+                    isSelected
+                      ? "border-primary bg-surface shadow-xl"
+                      : "border-border/70 bg-surface/30 hover:border-border hover:bg-surface/50"
+                  }`}
                 >
-                  <span className={`text-sm italic ${isActive ? "text-primary-glow" : "text-muted-foreground"}`}>
-                    {p.n.replace("0", "")}.
-                  </span>
-                  <span
-                    className={`font-display text-2xl md:text-4xl font-light transition-colors ${
-                      isActive ? "text-gradient" : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {p.title}
-                  </span>
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className={`font-mono text-xs font-semibold ${isSelected ? "text-primary-glow" : "text-muted-foreground"}`}>
+                        {p.tag}
+                      </span>
+                      {isSelected && (
+                        <span className="h-2 w-2 rounded-full bg-primary-glow animate-ping" />
+                      )}
+                    </div>
+                    <h3 className="font-display text-xl font-medium text-foreground mb-2">
+                      {p.title}
+                    </h3>
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-4 truncate">
+                    {p.poweredBy}
+                  </div>
                 </button>
               );
             })}
           </div>
 
-          {/* Active phase card */}
-          <div
-            key={activePhase.id}
-            className="relative rounded-3xl border border-border bg-card-gradient overflow-hidden animate-fade-up"
-          >
-            <div
-              className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-30 blur-[120px] pointer-events-none"
-              style={{ background: "radial-gradient(circle, oklch(0.55 0.22 260), transparent 70%)" }}
-            />
-            <div className="relative grid lg:grid-cols-[1fr_1.4fr] gap-10 p-8 md:p-14">
-              <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="h-14 w-14 rounded-2xl bg-primary/15 border border-primary/30 flex items-center justify-center">
-                    <activePhase.icon className="h-6 w-6 text-primary-glow" />
+          {/* Active Phase Full Detail View */}
+          <div className="rounded-3xl border border-border/80 bg-card-gradient p-8 md:p-12 shadow-2xl relative overflow-hidden">
+            <div className="max-w-3xl mb-12">
+              <div className="inline-block text-xs font-mono text-primary-glow font-semibold uppercase tracking-wider mb-2">
+                {activePhase.poweredBy}
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl font-light text-foreground mb-4">
+                {activePhase.title}
+              </h2>
+              <p className="text-base md:text-lg text-foreground/90 font-medium mb-4 leading-relaxed">
+                {activePhase.tagline}
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                {activePhase.intro}
+              </p>
+            </div>
+
+            {/* Capabilities Grid */}
+            <div className="mb-12">
+              <h4 className="text-xs uppercase tracking-widest font-semibold text-muted-foreground mb-6">
+                Key Deliverables & Methodological Focus
+              </h4>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {activePhase.capabilities.map((c, i) => (
+                  <div key={i} className="p-5 rounded-2xl bg-surface/50 border border-border/60">
+                    <h5 className="font-display text-base font-medium text-foreground mb-2">
+                      {c.title}
+                    </h5>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      {c.desc}
+                    </p>
                   </div>
-                  <span className="font-display text-6xl font-light text-muted-foreground/30">{activePhase.n}</span>
-                </div>
-                <h2 className="font-display text-5xl md:text-6xl font-light mb-4">
-                  <span className="text-gradient">{activePhase.title}</span>
-                </h2>
-                <p className="text-xl text-foreground/90 mb-6 italic font-light">{activePhase.tagline}</p>
-                <p className="text-muted-foreground leading-relaxed mb-8">{activePhase.intro}</p>
+                ))}
+              </div>
+            </div>
 
-                <div className="rounded-2xl border border-primary/20 bg-primary/5 p-5 mb-8">
-                  <p className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-2">Outcome</p>
-                  <p className="text-foreground">{activePhase.outcome}</p>
+            {/* Deliverables Banner */}
+            <div className="pt-8 border-t border-border/60 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+              <div>
+                <span className="text-xs uppercase tracking-wider font-semibold text-primary-glow block mb-3">
+                  Verified Outputs & Engagements
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {activePhase.deliverables.map((d, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-background/80 border border-border px-3 py-1.5 text-xs text-foreground font-mono"
+                    >
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                      {d}
+                    </span>
+                  ))}
                 </div>
-
-                <CTAButton to="/work-with-us">{activePhase.cta}</CTAButton>
               </div>
 
-              <div>
-                <p className="text-xs tracking-[0.25em] uppercase text-muted-foreground mb-6">What we do</p>
-                <ul className="space-y-3">
-                  {activePhase.items.map((it, i) => (
-                    <li
-                      key={i}
-                      className="group rounded-xl border border-border bg-background/40 p-5 hover:border-primary-glow/40 hover:bg-background/60 transition-all"
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div>
-                          <h4 className="font-display text-lg font-medium mb-1 text-foreground">{it.t}</h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">{it.d}</p>
-                        </div>
-                        <ArrowUpRight className="h-5 w-5 text-muted-foreground group-hover:text-primary-glow group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all shrink-0" />
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+              <div className="shrink-0">
+                <CTAButton to="/work-with-us">{activePhase.cta}</CTAButton>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Service grid */}
-      <section className="relative py-24 border-t border-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-4">Solutions</p>
-            <h2 className="font-display text-4xl md:text-6xl font-light">
-              What we <span className="text-gradient">help you do</span>
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
-              { t: "AI Discovery & Audit", d: "Uncover where AI can create value, where workflows slow down, and what should be prioritized." },
-              { t: "AI Strategy & Opportunity Mapping", d: "Translate business goals into a clear AI roadmap with practical next steps." },
-              { t: "AI Solution Design", d: "Design the right solution — custom development or integrating existing tools." },
-              { t: "AI Implementation & Deployment", d: "Build and launch the system, then refine until it works inside your operations." },
-              { t: "AI Management & Optimization", d: "Monitor, maintain, and improve deployed systems so the value doesn't fade." },
-              { t: "AI Team Enablement", d: "Help your team understand, adopt, and use the system effectively." },
-            ].map((s, i) => (
-              <div
-                key={i}
-                className="group rounded-2xl border border-border bg-card-gradient p-7 hover:border-primary-glow/40 hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="text-xs tracking-[0.2em] uppercase text-primary-glow/70 mb-3">0{i + 1}</div>
-                <h3 className="font-display text-xl font-medium mb-3">{s.t}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Phase 03 Deep Dive (AIMS Feature Matrix) */}
+      <AIMSFeatureMatrix />
     </SiteLayout>
   );
 }
