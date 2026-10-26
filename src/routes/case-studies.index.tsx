@@ -1,71 +1,118 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { GradientOrbs } from "@/components/site/GradientOrbs";
-import { CASE_LIST } from "@/data/case-studies";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { ArrowRight } from "@/components/site/icons";
+import { CASE_LIST, CASE_STUDIES } from "@/data/case-studies";
+import earthImg from "@/assets/planets/earth-large.webp";
+import { breadcrumbLd, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/case-studies/")({
-  head: () => ({
-    meta: [
-      { title: "Case Studies — UniversAI Solutions" },
-      { name: "description", content: "Real AI transformation stories — from hiring and finance to education — built for Nigerian businesses." },
-      { property: "og:title", content: "Case Studies — UniversAI Solutions" },
-      { property: "og:description", content: "How we help Nigerian businesses turn AI into measurable operational advantage." },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "AI Case Studies from Nigeria | UniversAI Solutions",
+      description:
+        "How Nigerian organisations use AI with UniversAI: hiring automation in Lagos, budget forecasting in Abuja and adaptive learning in edtech, with measured results.",
+      path: "/case-studies",
+      jsonLd: [breadcrumbLd([{ name: "Case studies", path: "/case-studies" }])],
+    }),
   component: CaseStudiesIndex,
 });
+
+const FIELDS = ["paper", "mist", "paper"] as const;
 
 function CaseStudiesIndex() {
   return (
     <SiteLayout>
-      <section className="relative pt-40 pb-20 overflow-hidden bg-hero">
-        <GradientOrbs />
-        <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6 text-center">
-          <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-6 animate-fade-in">Case Studies</p>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] mb-8 animate-fade-up">
-            Proof, not <span className="text-gradient">promises.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            Real engagements, real outcomes. Each story shows how we move businesses from
-            stuck to scaling with AI that actually works.
-          </p>
+      <section data-field="deep" className="field-deep overflow-hidden">
+        <div className="wrap relative min-h-[78svh] grid-12 items-end pt-[calc(var(--header-h)+48px)] pb-14">
+          <figure className="col-span-12 lg:absolute lg:right-[-12vw] lg:top-[8svh] lg:w-[58vw] max-w-[920px] mb-10 lg:mb-0">
+            <img
+              src={earthImg}
+              alt="Earth seen whole from space, with Africa at the centre"
+              width={1200}
+              height={1200}
+              className="w-full aspect-square mix-blend-screen drift"
+            />
+            <figcaption className="t-1 soft mt-2 lg:hidden">
+              Africa from Apollo 17, 1972. NASA, public domain.
+            </figcaption>
+          </figure>
+          <div className="col-span-12 lg:col-span-6 relative">
+            <h1 className="t-5" data-rise>
+              Client impact
+            </h1>
+            <p className="statement mt-8" data-rise style={{ ["--i" as string]: 1 }}>
+              How we help organisations across Nigeria remove manual work, sharpen decisions and
+              turn AI into measurable results.
+            </p>
+            <p className="t-1 soft mt-8 hidden lg:block">
+              Africa from Apollo 17, 1972. NASA, public domain.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="relative py-20">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {CASE_LIST.map((c) => (
-            <Link
-              key={c.slug}
-              to="/case-studies/$slug"
-              params={{ slug: c.slug }}
-              className="group relative rounded-3xl overflow-hidden border border-border h-[460px] transition-transform hover:-translate-y-2"
-            >
-              <img src={c.image} alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+      {CASE_LIST.map((c, i) => {
+        const cs = CASE_STUDIES[c.slug];
+        const field = FIELDS[i];
+        return (
+          <section key={c.slug} data-field={field} className={`field-${field}`}>
+            <div className="wrap py-20 md:py-28 grid-12 gap-y-8 items-end">
               <div
-                className="absolute inset-0"
-                style={{
-                  background:
-                    "linear-gradient(180deg, oklch(0.16 0.05 255 / 30%) 0%, oklch(0.16 0.05 255 / 60%) 55%, oklch(0.13 0.06 255 / 95%) 100%)",
-                }}
-              />
-              <div
-                className="absolute inset-0 opacity-50 mix-blend-color"
-                style={{ background: "oklch(0.25 0.18 260 / 60%)" }}
-              />
-              <div className="relative h-full flex flex-col justify-end p-8">
-                <span className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-3">{c.tag}</span>
-                <h3 className="font-display text-2xl font-medium leading-snug mb-6">{c.title}</h3>
-                <span className="inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-foreground group-hover:gap-3 transition-all">
-                  Read case study <ArrowRight className="h-3 w-3" />
-                </span>
+                className={`col-span-12 lg:col-span-6 ${i % 2 ? "lg:order-2 lg:col-start-7" : ""}`}
+              >
+                <Link
+                  to="/case-studies/$slug"
+                  params={{ slug: c.slug }}
+                  className="block overflow-hidden shutter"
+                  data-reveal
+                >
+                  <img
+                    src={c.image}
+                    alt={cs.hero.imageAlt}
+                    width={1600}
+                    height={1000}
+                    loading={i === 0 ? undefined : "lazy"}
+                    className="w-full aspect-[4/3] lg:aspect-[16/10] object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
+                  />
+                </Link>
+                <p className="t-1 soft mt-2">{cs.hero.imageCredit}</p>
               </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+              <div
+                className={`col-span-12 lg:col-span-5 ${i % 2 ? "lg:order-1 lg:col-start-1" : "lg:col-start-8"}`}
+              >
+                <h2 className="t-4" data-reveal>
+                  <Link to="/case-studies/$slug" params={{ slug: c.slug }} className="link">
+                    {c.title}
+                  </Link>
+                </h2>
+                <p className="t-2 font-semibold mt-4" data-reveal>
+                  {c.tag} · {c.client}
+                </p>
+                <p className="t-2 mt-4" data-reveal>
+                  {c.summary}
+                </p>
+                <p className="t-3 mt-6" data-reveal>
+                  {c.metric}
+                </p>
+                <Link
+                  to="/case-studies/$slug"
+                  params={{ slug: c.slug }}
+                  className="btn btn-ink mt-8"
+                  data-reveal
+                >
+                  Read the case study <ArrowRight className="btn-arrow" />
+                </Link>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      <ClosingCTA
+        lines={["Your numbers", "could be next."]}
+        sentence="Book a discovery consultation. We'll start where your team loses the most hours."
+      />
     </SiteLayout>
   );
 }
