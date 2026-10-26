@@ -1,18 +1,19 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { SiteLayout } from "./SiteLayout";
-import { GradientOrbs } from "./GradientOrbs";
-import { CTAButton } from "./CTAButton";
+import { ClosingCTA } from "./ClosingCTA";
+import { ArrowLeft, ArrowRight } from "./icons";
+import { FounderMark } from "@/components/home/About";
+import { CASE_LIST } from "@/data/case-studies";
 
 export type CaseStudyData = {
   slug: string;
-  eyebrow: string;
-  hero: { title: React.ReactNode; intro: string; image: string };
+  label: string;
+  hero: { title: string; intro: string; image: string; imageAlt: string; imageCredit: string };
   snapshot: { label: string; value: string }[];
   challenge: { intro: string; bullets: string[]; outro: string };
   approach: {
     intro: string;
-    steps: { n: string; title: string; body: string; items?: string[] }[];
+    steps: { title: string; body: string; items?: string[] }[];
   };
   systems: { title: string; body: string }[];
   outcomes: { intro: string; metrics: { value: string; label: string }[]; outro: string };
@@ -21,212 +22,257 @@ export type CaseStudyData = {
   next: { slug: string; title: string };
 };
 
+const caseTitle = "font-bold tracking-[-0.04em] leading-[0.95] text-[clamp(2.5rem,7vw,7.25rem)]";
+
 export function CaseStudyPage({ data }: { data: CaseStudyData }) {
   return (
     <SiteLayout>
-      {/* Hero */}
-      <section className="relative pt-40 pb-24 overflow-hidden bg-hero">
-        <GradientOrbs />
-        <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="relative max-w-6xl mx-auto px-6">
-          <Link
-            to="/case-studies"
-            className="inline-flex items-center gap-2 text-xs tracking-[0.2em] uppercase text-muted-foreground hover:text-primary-glow mb-10 transition-colors"
-          >
-            <ArrowLeft className="h-3 w-3" /> All Case Studies
-          </Link>
-          <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-6 animate-fade-in">
-            {data.eyebrow}
-          </p>
-          <h1 className="font-display text-4xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-8 animate-fade-up max-w-5xl">
+      {/* Title on the paper field */}
+      <section data-field="paper" className="field-paper">
+        <div className="wrap pt-[calc(var(--header-h)+48px)] pb-14">
+          <h1 className={`${caseTitle} max-w-[16ch]`} data-rise style={{ ["--i" as string]: 1 }}>
             {data.hero.title}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl animate-fade-up" style={{ animationDelay: "0.15s" }}>
+          <p className="statement mt-8 max-w-[44ch]" data-rise style={{ ["--i" as string]: 2 }}>
             {data.hero.intro}
           </p>
         </div>
+        <figure className="wrap pb-6">
+          <div className="overflow-hidden">
+            <img
+              src={data.hero.image}
+              alt={data.hero.imageAlt}
+              width={1600}
+              height={900}
+              className="w-full aspect-[4/3] md:aspect-[21/9] object-cover drift"
+            />
+          </div>
+          <figcaption className="t-1 soft mt-3">{data.hero.imageCredit}</figcaption>
+        </figure>
       </section>
 
-      {/* Hero image */}
-      <section className="relative -mt-6 pb-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="relative aspect-[16/9] rounded-3xl overflow-hidden border border-border">
-            <img src={data.hero.image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, oklch(0.16 0.05 255 / 35%) 0%, oklch(0.16 0.05 255 / 55%) 60%, oklch(0.13 0.06 255 / 90%) 100%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-50 mix-blend-color"
-              style={{ background: "oklch(0.25 0.18 260 / 60%)" }}
-            />
+      {/* Snapshot */}
+      <section data-field="mist" className="field-mist">
+        <dl className="wrap py-14 md:py-20 grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+          <div data-reveal>
+            <dt className="t-1 soft">Engagement</dt>
+            <dd className="t-3 mt-1">{data.label}</dd>
+          </div>
+          {data.snapshot
+            .filter((s) => s.label !== "Engagement")
+            .map((s, i) => (
+              <div key={s.label} data-reveal style={{ ["--i" as string]: i + 1 }}>
+                <dt className="t-1 soft">{s.label}</dt>
+                <dd className="t-3 mt-1">{s.value}</dd>
+              </div>
+            ))}
+        </dl>
+      </section>
+
+      {/* Challenge */}
+      <section data-field="paper" className="field-paper">
+        <div className="wrap py-28 md:py-36 grid-12 gap-y-10">
+          <h2 className="col-span-12 md:col-span-4 t-4 max-w-[10ch]" data-reveal>
+            Where it broke
+          </h2>
+          <div className="col-span-12 md:col-start-6 md:col-span-7">
+            <p className="t-2 max-w-[60ch]" data-reveal>
+              {data.challenge.intro}
+            </p>
+            <ul className="mt-10">
+              {data.challenge.bullets.map((b, i) => (
+                <li
+                  key={b}
+                  className="t-3 py-3 font-medium"
+                  data-reveal
+                  style={{ ["--i" as string]: i }}
+                >
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <p className="statement mt-10 text-blue" data-reveal>
+              {data.challenge.outro}
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Snapshot */}
-      <section className="relative py-20 border-y border-border bg-surface/40">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-          {data.snapshot.map((s) => (
-            <div key={s.label}>
-              <div className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-2">{s.label}</div>
-              <div className="text-foreground font-display text-lg md:text-xl">{s.value}</div>
-            </div>
-          ))}
+      {/* Approach */}
+      <section data-field="navy" className="field-navy">
+        <div className="wrap py-28 md:py-36">
+          <h2 className="t-4 max-w-[14ch]" data-reveal>
+            How we went about it
+          </h2>
+          <p className="t-2 soft mt-6 max-w-[56ch]" data-reveal>
+            {data.approach.intro}
+          </p>
+          <ol className="grid md:grid-cols-3 gap-x-10 gap-y-12 mt-16">
+            {data.approach.steps.map((s, i) => (
+              <li key={s.title} data-reveal style={{ ["--i" as string]: i }}>
+                <div
+                  className="h-2 bg-sky"
+                  style={{ width: `${34 + i * 33}%` }}
+                  aria-hidden="true"
+                />
+                <h3 className="t-3 mt-6">{s.title}</h3>
+                <p className="t-2 soft mt-3">{s.body}</p>
+                {s.items && (
+                  <ul className="mt-4 t-1 space-y-1.5">
+                    {s.items.map((it) => (
+                      <li key={it}>{it}</li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
-      {/* Challenge */}
-      <Section eyebrow="The Challenge" title="Where things were breaking">
-        <p className="text-lg text-muted-foreground leading-relaxed mb-8">{data.challenge.intro}</p>
-        <ul className="space-y-3 mb-8">
-          {data.challenge.bullets.map((b, i) => (
-            <li key={i} className="flex items-start gap-4 rounded-xl border border-border bg-card-gradient p-5">
-              <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary-glow shrink-0" />
-              <span className="text-foreground/90">{b}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="font-display text-2xl md:text-3xl font-light text-gradient">{data.challenge.outro}</p>
-      </Section>
-
-      {/* Approach */}
-      <Section eyebrow="Our Approach" title="A structured path to real change">
-        <p className="text-lg text-muted-foreground leading-relaxed mb-12">{data.approach.intro}</p>
-        <div className="space-y-5">
-          {data.approach.steps.map((s) => (
-            <div key={s.n} className="rounded-2xl border border-border bg-card-gradient p-7">
-              <div className="flex items-baseline gap-5 mb-3">
-                <span className="font-display text-4xl font-light text-muted-foreground/40">{s.n}</span>
-                <h3 className="font-display text-2xl font-medium">{s.title}</h3>
+      {/* What we built */}
+      <section data-field="paper" className="field-paper">
+        <div className="wrap py-28 md:py-36 grid-12 gap-y-10">
+          <h2 className="col-span-12 md:col-span-4 t-4 max-w-[10ch]" data-reveal>
+            What we built
+          </h2>
+          <div className="col-span-12 md:col-start-6 md:col-span-7 grid sm:grid-cols-2 gap-x-10 gap-y-10">
+            {data.systems.map((s, i) => (
+              <div key={s.title} data-reveal style={{ ["--i" as string]: i }}>
+                <h3 className="t-3">{s.title}</h3>
+                <p className="t-2 soft mt-2">{s.body}</p>
               </div>
-              <p className="text-muted-foreground leading-relaxed mb-4">{s.body}</p>
-              {s.items && (
-                <ul className="grid sm:grid-cols-2 gap-2 mt-4">
-                  {s.items.map((it, i) => (
-                    <li key={i} className="flex items-start gap-3 text-sm text-foreground/80">
-                      <span className="mt-2 h-1 w-1 rounded-full bg-primary-glow" />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </Section>
-
-      {/* Systems we built */}
-      <Section eyebrow="What We Built" title="The systems behind the results">
-        <div className="grid md:grid-cols-2 gap-5">
-          {data.systems.map((s, i) => (
-            <div
-              key={i}
-              className="rounded-2xl border border-border bg-card-gradient p-7 hover:border-primary-glow/40 transition-colors"
-            >
-              <div className="text-xs tracking-[0.2em] uppercase text-primary-glow/80 mb-3">0{i + 1}</div>
-              <h3 className="font-display text-xl font-medium mb-3">{s.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{s.body}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
+      </section>
 
       {/* Outcomes */}
-      <Section eyebrow="Outcomes & Impact" title="What changed, in numbers">
-        <p className="text-lg text-muted-foreground leading-relaxed mb-10">{data.outcomes.intro}</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-          {data.outcomes.metrics.map((m, i) => (
-            <div key={i} className="rounded-2xl border border-border bg-card-gradient p-6">
-              <div className="font-display text-4xl md:text-5xl font-light text-gradient mb-2">{m.value}</div>
-              <div className="text-sm text-muted-foreground leading-snug">{m.label}</div>
-            </div>
-          ))}
+      <section data-field="sky" className="field-sky">
+        <div className="wrap py-28 md:py-36">
+          <h2 className="t-4" data-reveal>
+            What changed
+          </h2>
+          <p className="t-2 mt-6 max-w-[56ch]" data-reveal>
+            {data.outcomes.intro}
+          </p>
+          <div className="grid sm:grid-cols-3 gap-x-10 gap-y-12 mt-16">
+            {data.outcomes.metrics.map((m, i) => (
+              <div key={m.label} data-reveal style={{ ["--i" as string]: i }}>
+                <p className="nums font-bold tracking-[-0.045em] leading-[0.9] text-[clamp(3.5rem,7vw,7rem)]">
+                  {m.value}
+                </p>
+                <p className="t-2 mt-3 max-w-[22ch]">{m.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="statement mt-16" data-reveal>
+            {data.outcomes.outro}
+          </p>
         </div>
-        <p className="font-display text-xl md:text-2xl font-light text-foreground/90">{data.outcomes.outro}</p>
-      </Section>
+      </section>
 
-      {/* Why this matters */}
-      <Section eyebrow="Why This Matters" title="Before and after">
-        <div className="grid md:grid-cols-2 gap-5">
-          <div className="rounded-2xl border border-border bg-card-gradient p-7">
-            <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Before</p>
-            <ul className="space-y-3">
-              {data.whyMatters.before.map((b, i) => (
-                <li key={i} className="flex items-start gap-3 text-foreground/80">
-                  <span className="mt-2 h-1 w-1 rounded-full bg-muted-foreground" />
+      {/* Before and after */}
+      <section data-field="paper" className="field-paper">
+        <div className="wrap py-28 md:py-36 grid md:grid-cols-2 gap-x-10 gap-y-14">
+          <div data-reveal>
+            <h2 className="t-3 soft">Before</h2>
+            <ul className="mt-4 space-y-2">
+              {data.whyMatters.before.map((b) => (
+                <li key={b} className="t-3 soft font-medium">
                   {b}
                 </li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-primary/30 bg-primary/5 p-7">
-            <p className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-4">After</p>
-            <p className="font-display text-xl md:text-2xl font-light text-gradient leading-snug">
-              {data.whyMatters.after}
+          <div data-reveal style={{ ["--i" as string]: 1 }}>
+            <h2 className="t-3">After</h2>
+            <p className="statement mt-4">{data.whyMatters.after}</p>
+          </div>
+          <div className="md:col-span-2 flex flex-col md:flex-row md:items-end justify-between gap-8 pt-16">
+            <p className="statement max-w-[36ch]" data-reveal>
+              {data.closing}
             </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* Closing insight */}
-      <section className="relative py-32">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-6">Closing Insight</p>
-          <p className="font-display text-3xl md:text-5xl font-light leading-tight">
-            <span className="text-gradient">{data.closing}</span>
-          </p>
-        </div>
-      </section>
-
-      {/* Next case + CTA */}
-      <section className="relative pb-32">
-        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-6">
-          <Link
-            to="/case-studies/$slug"
-            params={{ slug: data.next.slug }}
-            className="group rounded-3xl border border-border bg-card-gradient p-8 hover:border-primary-glow/40 transition-all"
-          >
-            <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-3">Next Case Study</p>
-            <h3 className="font-display text-2xl md:text-3xl font-light mb-6">{data.next.title}</h3>
-            <span className="inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-primary-glow group-hover:gap-3 transition-all">
-              Read it <ArrowRight className="h-3 w-3" />
-            </span>
-          </Link>
-          <div className="rounded-3xl border border-primary/30 bg-primary/5 p-8 flex flex-col justify-between">
-            <div>
-              <p className="text-xs tracking-[0.2em] uppercase text-primary-glow mb-3">Your Move</p>
-              <h3 className="font-display text-2xl md:text-3xl font-light mb-6">
-                Could a system like this work for your business?
-              </h3>
-            </div>
-            <CTAButton to="/work-with-us">Get In Touch</CTAButton>
+            <Link
+              to="/case-studies/$slug"
+              params={{ slug: data.next.slug }}
+              className="btn btn-ink self-start md:self-auto"
+              data-reveal
+            >
+              Next: {data.next.title} <ArrowRight className="btn-arrow" />
+            </Link>
           </div>
         </div>
       </section>
+
+      {/* More work */}
+      <section data-field="mist" className="field-mist">
+        <div className="wrap py-24 md:py-32">
+          <div className="flex flex-wrap items-baseline justify-between gap-4">
+            <h2 className="t-4" data-reveal>
+              More work
+            </h2>
+            <Link
+              to="/case-studies"
+              className="inline-flex items-center gap-2 t-2 font-semibold link-on"
+              data-reveal
+            >
+              <ArrowLeft /> All case studies
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-x-10 gap-y-14 mt-12">
+            {CASE_LIST.filter((c) => c.slug !== data.slug).map((c, i) => (
+              <Link
+                key={c.slug}
+                to="/case-studies/$slug"
+                params={{ slug: c.slug }}
+                className="group block"
+                data-reveal
+                style={{ ["--i" as string]: i }}
+              >
+                <div className="overflow-hidden">
+                  <img
+                    src={c.image}
+                    alt=""
+                    width={1600}
+                    height={1000}
+                    loading="lazy"
+                    className="w-full aspect-[16/10] object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                  />
+                </div>
+                <h3 className="t-3 mt-5 group-hover:underline underline-offset-4">{c.title}</h3>
+                <p className="t-2 mt-1">{c.metric}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* The people */}
+      <section data-field="deep" className="field-deep">
+        <div className="wrap py-24 md:py-32 grid-12 gap-y-12 items-center">
+          <div className="col-span-12 lg:col-span-5">
+            <h2 className="t-4 max-w-[12ch]" data-reveal>
+              Meet our leadership
+            </h2>
+            <p className="t-2 mt-6 max-w-[44ch]" data-reveal>
+              Every engagement is led by senior practitioners in AI solution design, data
+              engineering and machine learning operations.
+            </p>
+            <Link to="/team" className="btn mt-8" data-reveal>
+              Meet the team <ArrowRight className="btn-arrow" />
+            </Link>
+          </div>
+          <div className="col-span-12 lg:col-start-7 lg:col-span-6">
+            <FounderMark />
+          </div>
+        </div>
+      </section>
+
+      <ClosingCTA
+        lines={["Could this", "work for you?"]}
+        sentence="Tell us where the work piles up. A senior consultant will follow up within 24 hours."
+      />
     </SiteLayout>
-  );
-}
-
-function Section({
-  eyebrow,
-  title,
-  children,
-}: {
-  eyebrow: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="relative py-24">
-      <div className="max-w-5xl mx-auto px-6">
-        <p className="text-xs tracking-[0.25em] uppercase text-primary-glow mb-4">{eyebrow}</p>
-        <h2 className="font-display text-3xl md:text-5xl font-light mb-10 leading-tight">{title}</h2>
-        {children}
-      </div>
-    </section>
   );
 }
