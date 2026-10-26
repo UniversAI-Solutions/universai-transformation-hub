@@ -1,50 +1,65 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { ld, organizationLd, websiteLd } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
+    <SiteLayout>
+      <section data-field="mist" className="field-mist">
+        <div className="wrap min-h-[80svh] flex flex-col justify-end pb-16 pt-[calc(var(--header-h)+10vh)]">
+          <h1 className="t-5">Nothing here.</h1>
+          <p className="t-2 mt-6 max-w-[44ch]">
+            That page doesn't exist or has moved. Start again from the home page.
+          </p>
+          <div className="mt-8">
+            <Link to="/" className="btn">
+              Go to the home page
+            </Link>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </SiteLayout>
   );
 }
+
+// Site-wide defaults. Each route's head() overrides these through seo() in src/lib/seo.ts.
+const TITLE = "UniversAI Solutions | AI Consulting and Transformation, Nigeria";
+const DESCRIPTION =
+  "UniversAI Solutions is an AI consulting and transformation firm serving organisations across Nigeria. We diagnose operational bottlenecks, build custom AI systems and manage them long term.";
+
+// Search-console ownership tags, set as environment variables at build time
+const GOOGLE_VERIFY = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION as string | undefined;
+const BING_VERIFY = import.meta.env.VITE_BING_SITE_VERIFICATION as string | undefined;
 
 export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "UniversAI Solutions — Discover. Implement. Partner." },
-      { name: "description", content: "Your trusted AI transformation partner on the journey to becoming an AI-first business." },
+      { title: TITLE },
+      { name: "description", content: DESCRIPTION },
       { name: "author", content: "UniversAI Solutions Ltd." },
-      { property: "og:title", content: "UniversAI Solutions — Discover. Implement. Partner." },
-      { property: "og:description", content: "Your trusted AI transformation partner on the journey to becoming an AI-first business." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "UniversAI Solutions — Discover. Implement. Partner." },
-      { name: "twitter:description", content: "Your trusted AI transformation partner on the journey to becoming an AI-first business." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d623dd7-d2c0-40d6-91c2-34f16aebfb9c/id-preview-ae698f6f--fc513061-a7ae-4409-a290-ba2c57d9a100.lovable.app-1777784860418.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/9d623dd7-d2c0-40d6-91c2-34f16aebfb9c/id-preview-ae698f6f--fc513061-a7ae-4409-a290-ba2c57d9a100.lovable.app-1777784860418.png" },
+      { name: "theme-color", content: "#1f3a60" },
+      { name: "format-detection", content: "telephone=no" },
+      ...(GOOGLE_VERIFY ? [{ name: "google-site-verification", content: GOOGLE_VERIFY }] : []),
+      ...(BING_VERIFY ? [{ name: "msvalidate.01", content: BING_VERIFY }] : []),
+      ld(organizationLd()),
+      ld(websiteLd()),
     ],
     links: [
+      { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/icons/favicon-32.png", type: "image/png", sizes: "32x32" },
+      { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap",
+      },
       { rel: "stylesheet", href: appCss },
     ],
   }),
@@ -55,8 +70,11 @@ export const Route = createRootRoute({
 
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en-NG" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
         <HeadContent />
       </head>
       <body>
