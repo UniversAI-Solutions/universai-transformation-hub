@@ -1,254 +1,220 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { 
-  Network, 
-  Cpu, 
-  Terminal, 
-  CheckCircle2, 
-  ArrowRight,
-  Shield,
-  RotateCcw,
-  Compass,
-  Activity,
-  Workflow,
-  Sparkles,
-  Search
-} from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { breadcrumbLd, seo } from "@/lib/seo";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { GradientOrbs } from "@/components/site/GradientOrbs";
-import { CTAButton } from "@/components/site/CTAButton";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { IndustryStrip } from "@/components/site/IndustryStrip";
 import { UniversAIDSSimulator } from "@/components/site/UniversAIDSSimulator";
+import { AimsFragment } from "@/components/site/Fragments";
+import {
+  IconEvidence,
+  IconGraph,
+  IconNaira,
+  IconPulse,
+  IconShield,
+  IconTraining,
+} from "@/components/site/icons";
 
 export const Route = createFileRoute("/platform")({
-  head: () => ({
-    meta: [
-      { title: "Proprietary Software Systems — UniversAIDS & UniversAIMS" },
-      {
-        name: "description",
-        content:
-          "Discover UniversAI's proprietary internal tools: UniversAIDS (Univers-Artificial Intelligence Discovery System) used in Phase 01 Discovery, and UniversAIMS (Univers-Artificial Intelligence Management System) used in Phase 03 Partnership.",
-      },
-      { property: "og:title", content: "Proprietary Software Systems — UniversAI Solutions" },
-      {
-        property: "og:description",
-        content:
-          "Internal enterprise tools engineered for rigorous discovery, evidence correlation, and ongoing production management.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "UniversAIDS & UniversAIMS AI Platforms | UniversAI Solutions",
+      description:
+        "UniversAIDS traces operational bottlenecks to their root cause with cited evidence; UniversAIMS monitors AI systems for drift, uptime and cost.",
+      path: "/platform",
+      jsonLd: [breadcrumbLd([{ name: "Platforms", path: "/platform" }])],
+    }),
   component: PlatformPage,
 });
+
+const AIDS_FACTS = [
+  {
+    Icon: IconEvidence,
+    title: "Reads what you already have",
+    body: "Word SOPs, multi-tab Excel, CSV exports and interview transcripts, in the formats your teams use.",
+  },
+  {
+    Icon: IconGraph,
+    title: "Links symptoms to causes",
+    body: "Findings become a graph of departments, systems and processes, so you see which one problem explains the rest.",
+  },
+  {
+    Icon: IconShield,
+    title: "Cites every claim",
+    body: "Each finding names its file, page or row. Raw evidence stays partitioned and is purged when the engagement closes.",
+  },
+];
+
+const AIMS_FACTS = [
+  {
+    Icon: IconPulse,
+    title: "Uptime and accuracy",
+    body: "Response times, errors and drift in model accuracy, watched day and night.",
+  },
+  {
+    Icon: IconNaira,
+    title: "Running cost",
+    body: "Token spend tracked and cut with caching and routing; renewals handled before quotas lapse.",
+  },
+  {
+    Icon: IconTraining,
+    title: "People",
+    body: "Who uses the system, where they get stuck, and what training comes next.",
+  },
+  {
+    Icon: IconShield,
+    title: "Incidents",
+    body: "When something breaks upstream, the alert reaches our engineers before your staff notice.",
+  },
+];
+
+const ROLES = [
+  ["Open an engagement and fix the department map", "Full", "View", "View"],
+  ["Run evidence synthesis in UniversAIDS", "Oversight", "Full", "Temporary"],
+  ["Upload and inspect raw evidence", "Governance", "Full", "Assigned departments"],
+  ["Monitor systems in UniversAIMS", "Executive reports", "Full", "None"],
+  ["Close the engagement and purge raw evidence", "Full", "None", "None"],
+];
 
 function PlatformPage() {
   return (
     <SiteLayout>
-      {/* Hero */}
-      <section className="relative pt-40 pb-24 overflow-hidden bg-hero">
-        <GradientOrbs />
-        <div className="absolute inset-0 grain pointer-events-none" />
-
-        <div className="relative max-w-5xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 mb-8 animate-fade-in">
-            <Sparkles className="h-4 w-4 text-primary-glow" />
-            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-primary-glow">
-              Proprietary Internal Technology
-            </span>
-          </div>
-
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] tracking-tight mb-8 animate-fade-up">
-            Our Proprietary <br />
-            <span className="text-gradient">Software Systems</span>
+      <section data-field="navy" className="field-navy">
+        <div className="wrap min-h-[72svh] flex flex-col justify-end pt-[calc(var(--header-h)+48px)] pb-14">
+          <h1 className="t-5 max-w-[10ch]" data-rise>
+            Proprietary platforms
           </h1>
-
-          <p
-            className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-8 animate-fade-up"
-            style={{ animationDelay: "0.15s" }}
-          >
-            We do not sell commercial off-the-shelf software. Instead, our senior consultants leverage two custom-built, proprietary systems across our 3-phase consulting methodology to guarantee precision and sustained client ROI.
+          <p className="statement mt-8" data-rise style={{ ["--i" as string]: 1 }}>
+            UniversAIDS and UniversAIMS give our consultants evidence in discovery and control in
+            production, so every recommendation is traceable and every system stays accountable.
           </p>
-
-          <div
-            className="flex flex-wrap items-center justify-center gap-4 animate-fade-up"
-            style={{ animationDelay: "0.25s" }}
-          >
-            <CTAButton to="/work-with-us">Book a Discovery Consultation</CTAButton>
-            <CTAButton to="/services" variant="outline">Explore 3 Consulting Phases</CTAButton>
-          </div>
         </div>
       </section>
 
-      {/* Two Proprietary Systems Overview Cards */}
-      <section className="relative py-12 px-6 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {/* Tool 1: UniversAIDS */}
-          <div className="rounded-3xl border border-primary/50 bg-card-gradient p-8 md:p-10 shadow-xl flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="h-12 w-12 rounded-2xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary-glow">
-                  <Network className="h-6 w-6" />
-                </div>
-                <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-primary-glow uppercase tracking-wider">
-                  Used in Phase 01: Discovery
-                </span>
-              </div>
-              <h3 className="font-display text-2xl md:text-3xl font-medium text-foreground mb-2">
-                UniversAIDS
-              </h3>
-              <div className="text-xs font-mono text-primary-glow mb-4">
-                Univers-Artificial Intelligence Discovery System
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Our internal evidence extraction and correlation engine. During client audits, UniversAIDS ingests unstructured interviews, multi-tab Excel sheets, and SOPs, synthesizing departmental bottlenecks and mapping dependencies into an interactive topological knowledge graph.
-              </p>
-              <ul className="space-y-2.5 text-xs text-foreground mb-6">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Multi-modal parsing: Word, Excel, CSV, Plaintext</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Force-directed organizational knowledge graph</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Immutable audit statements & evidence citations</span>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-6 border-t border-border/50 text-xs text-muted-foreground italic">
-              *Proprietary internal consulting software — utilized exclusively by UniversAI engagement leads.
-            </div>
-          </div>
-
-          {/* Tool 2: UniversAIMS */}
-          <div className="rounded-3xl border border-border/80 bg-card-gradient p-8 md:p-10 shadow-xl flex flex-col justify-between">
-            <div>
-              <div className="flex items-center justify-between mb-6">
-                <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
-                  <Activity className="h-6 w-6" />
-                </div>
-                <span className="font-mono text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 uppercase tracking-wider">
-                  Used in Phase 03: Partnership
-                </span>
-              </div>
-              <h3 className="font-display text-2xl md:text-3xl font-medium text-foreground mb-2">
-                UniversAIMS
-              </h3>
-              <div className="text-xs font-mono text-emerald-400 mb-4">
-                Univers-Artificial Intelligence Management System
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Our ongoing system monitoring and governance software. After deployment, UniversAIMS continuously monitors client AI pipelines, tracking inference uptime, detecting model accuracy drift, managing token resubscriptions, and preventing vendor quota outages.
-              </p>
-              <ul className="space-y-2.5 text-xs text-foreground mb-6">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>24/7 client telemetry & latency surveillance</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Model accuracy drift detection & auto-alerting</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>Automated token optimization & vendor re-subscription</span>
-                </li>
-              </ul>
-            </div>
-            <div className="pt-6 border-t border-border/50 text-xs text-muted-foreground italic">
-              *Proprietary client operations software — powers our long-term partnership commitments.
-            </div>
-          </div>
-        </div>
-
-        {/* Interactive UniversAIDS Demonstration */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 text-primary-glow text-xs uppercase tracking-widest font-mono font-semibold mb-2">
-            <Search className="h-3.5 w-3.5" />
-            Phase 01 Internal Tool Simulator
-          </div>
-          <h2 className="font-display text-2xl md:text-3xl font-light mb-2">
-            Inside UniversAIDS: Evidence to Synthesis
-          </h2>
-          <p className="text-sm text-muted-foreground">
-            Experience how our consultants ingest multi-modal client discovery files and correlate systemic root causes below:
-          </p>
-        </div>
-        <UniversAIDSSimulator />
-      </section>
-
-      {/* Security & RBAC Governance */}
-      <section className="relative py-20 bg-surface/20 border-y border-border">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <span className="text-xs uppercase tracking-[0.2em] text-primary-glow font-semibold">
-              Security & Audit Integrity
-            </span>
-            <h2 className="font-display text-3xl md:text-4xl font-light mt-2">
-              Role-Based Access Control (RBAC) Governance
+      <section data-field="paper" className="field-paper" id="universaids">
+        <div className="wrap py-28 md:py-36">
+          <div className="grid-12 gap-y-6 items-end">
+            <h2 className="col-span-12 md:col-span-6 t-4" data-reveal>
+              UniversAIDS
             </h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              Our consulting engagements enforce strict human-in-the-loop accountability: AI correlates, but senior consultants validate.
+            <p className="col-span-12 md:col-span-6 t-2" data-reveal>
+              The Discovery System. During an audit it takes in your interviews, spreadsheets and
+              SOPs and links each bottleneck to the evidence behind it. Pick a finding below to see
+              how.
             </p>
           </div>
 
-          <div className="overflow-x-auto rounded-2xl border border-border/80 bg-[#070e1e]">
-            <table className="w-full text-left text-xs font-mono">
+          <div className="mt-14" data-reveal>
+            <UniversAIDSSimulator />
+          </div>
+
+          <ul className="grid md:grid-cols-3 gap-x-10 gap-y-10 mt-16">
+            {AIDS_FACTS.map((f, i) => (
+              <li key={f.title} className="flex gap-4" data-reveal style={{ ["--i" as string]: i }}>
+                <f.Icon size={52} className="shrink-0 text-ink" />
+                <div>
+                  <h3 className="t-3">{f.title}</h3>
+                  <p className="t-2 soft mt-2">{f.body}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section data-field="mist" className="field-mist" id="universaims">
+        <div className="wrap py-28 md:py-36 grid-12 gap-y-14 items-start">
+          <div className="col-span-12 lg:col-span-5">
+            <h2 className="t-4" data-reveal>
+              UniversAIMS
+            </h2>
+            <p className="t-2 mt-6 max-w-[48ch]" data-reveal>
+              The Management System. Once a system is live, UniversAIMS watches it for us. It is how
+              we keep our promises in the Partner phase.
+            </p>
+            <ul
+              className="mt-12 space-y-8"
+              style={{
+                ["--icon-fill" as string]: "var(--paper)",
+                ["--icon-bg" as string]: "var(--mist)",
+              }}
+            >
+              {AIMS_FACTS.map((f, i) => (
+                <li
+                  key={f.title}
+                  className="flex gap-4"
+                  data-reveal
+                  style={{ ["--i" as string]: i }}
+                >
+                  <f.Icon size={44} className="shrink-0" />
+                  <div>
+                    <h3 className="t-3">{f.title}</h3>
+                    <p className="t-2 soft mt-1">{f.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-span-12 lg:col-start-7 lg:col-span-6 lg:sticky lg:top-28" data-reveal>
+            <AimsFragment />
+            <p className="t-1 soft mt-3">UniversAIMS overview, with sample systems and figures.</p>
+          </div>
+        </div>
+      </section>
+
+      <IndustryStrip
+        title="Tuned for each industry"
+        sentence="Both tools carry the benchmarks, document types and systems of all eight of our industry arms, from waybills in logistics to HMO claims in healthcare."
+      />
+
+      <section data-field="paper" className="field-paper">
+        <div className="wrap py-28 md:py-36">
+          <div className="grid-12 gap-y-6 items-end">
+            <h2 className="col-span-12 md:col-span-6 t-4 max-w-[12ch]" data-reveal>
+              Who can do what
+            </h2>
+            <p className="col-span-12 md:col-span-6 t-2" data-reveal>
+              The AI correlates; people decide. Access in both tools follows the consultant's role,
+              and only a partner can close an engagement and purge its evidence.
+            </p>
+          </div>
+          <div className="mt-12 overflow-x-auto" data-reveal>
+            <table className="w-full min-w-[640px] text-left t-2">
+              <caption className="sr-only">Permissions by role</caption>
               <thead>
-                <tr className="border-b border-border/60 text-muted-foreground text-[10px] uppercase tracking-wider bg-background/50">
-                  <th className="py-3 px-4">Consulting Capability</th>
-                  <th className="py-3 px-4 text-center">Partner Admin</th>
-                  <th className="py-3 px-4 text-center">Senior Consultant</th>
-                  <th className="py-3 px-4 text-center">Junior / Field</th>
+                <tr className="border-b-2 border-ink" /* real table: taste-skill-ignore */>
+                  <th className="py-3 pr-4 font-semibold">Action</th>
+                  <th className="py-3 px-4 font-semibold">Partner</th>
+                  <th className="py-3 px-4 font-semibold">Senior consultant</th>
+                  <th className="py-3 pl-4 font-semibold">Field consultant</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/20 text-foreground">
-                <tr>
-                  <td className="py-3.5 px-4 font-sans font-medium">Create Engagements & Lock Department Topology</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Full Authority</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">View Only</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">View Only</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-sans font-medium">Trigger Multi-Modal AI Synthesis (UniversAIDS)</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">Oversight Only</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Sole Authority</td>
-                  <td className="py-3.5 px-4 text-center text-amber-400">Temp Auth Only</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-sans font-medium">Upload & Inspect Raw Discovery Evidence</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">Governance Only</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Active Discovery</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Assigned Depts</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-sans font-medium">Monitor Observability & Drift (UniversAIMS)</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Executive Reports</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">24/7 Operations</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">Restricted</td>
-                </tr>
-                <tr>
-                  <td className="py-3.5 px-4 font-sans font-medium">Close Engagement & Purge Raw Evidence</td>
-                  <td className="py-3.5 px-4 text-center text-emerald-400">Sole Authority</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">Restricted</td>
-                  <td className="py-3.5 px-4 text-center text-muted-foreground">Restricted</td>
-                </tr>
+              <tbody>
+                {ROLES.map(([action, ...cells]) => (
+                  <tr
+                    key={action}
+                    className="border-b border-mist-2" /* real table: taste-skill-ignore */
+                  >
+                    <td className="py-4 pr-4 font-medium">{action}</td>
+                    {cells.map((c, i) => (
+                      <td
+                        key={i}
+                        className={`py-4 px-4 ${c === "Full" ? "font-semibold" : "soft"}`}
+                      >
+                        {c}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      {/* Bottom CTA */}
-      <section className="relative py-28 text-center max-w-4xl mx-auto px-6">
-        <h2 className="font-display text-4xl md:text-5xl font-light tracking-tight mb-6">
-          Ready to discover your organization's <br />
-          <span className="text-gradient">deep operational root causes?</span>
-        </h2>
-        <p className="text-muted-foreground text-lg mb-10 max-w-2xl mx-auto">
-          Contact our consulting partners to initiate Phase 01 Discovery for your organization.
-        </p>
-        <CTAButton to="/work-with-us">Book an Executive Consultation</CTAButton>
-      </section>
+      <ClosingCTA
+        lines={["See it on", "your evidence."]}
+        sentence="Book a discovery consultation and we'll run UniversAIDS on your own files."
+      />
     </SiteLayout>
   );
 }
