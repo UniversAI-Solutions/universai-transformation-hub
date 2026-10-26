@@ -1,319 +1,272 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { 
-  Search, 
-  Wrench, 
-  Handshake, 
-  CheckCircle2, 
-  Network, 
-  Activity, 
-  GraduationCap, 
-  Sparkles,
-  ArrowRight
-} from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { breadcrumbLd, seo, serviceLd } from "@/lib/seo";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { GradientOrbs } from "@/components/site/GradientOrbs";
-import { CTAButton } from "@/components/site/CTAButton";
-import { AIMSFeatureMatrix } from "@/components/site/AIMSFeatureMatrix";
+import { ClosingCTA } from "@/components/site/ClosingCTA";
+import { IndustryStrip } from "@/components/site/IndustryStrip";
+import {
+  ArrowRight,
+  CheckGlyph,
+  IconDiscover,
+  IconImplement,
+  IconPartner,
+} from "@/components/site/icons";
 
 export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Our 3-Phase Consulting Methodology — UniversAI Solutions" },
-      {
-        name: "description",
-        content:
-          "UniversAI Solutions' 3-phase consulting methodology: Phase 01 Discovery (powered by UniversAIDS), Phase 02 Implementation, and Phase 03 Partnership (powered by UniversAIMS).",
-      },
-      { property: "og:title", content: "Consulting Methodology & Services — UniversAI Solutions" },
-      {
-        property: "og:description",
-        content:
-          "We diagnose to discover root cause, build targeted custom AI solutions, and partner long term to ensure sustained client ROI.",
-      },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "AI Consulting Services in Nigeria | UniversAI Solutions",
+      description:
+        "AI discovery audits, custom AI implementation and long-term AI management for organisations in Nigeria. See how UniversAI's three-phase approach delivers measurable ROI.",
+      path: "/services",
+      jsonLd: [
+        serviceLd({
+          name: "AI discovery and operational audit",
+          description:
+            "Operational audits with the UniversAIDS platform that trace each bottleneck to its root cause, with ROI baselines and a costed AI blueprint.",
+          path: "/services#discovery",
+          type: "Artificial intelligence consulting",
+        }),
+        serviceLd({
+          name: "Custom AI implementation and integration",
+          description:
+            "Custom AI models, agents and connectors built into ERP, POS, CRM and core banking systems, tested before go-live.",
+          path: "/services#implementation",
+          type: "AI systems integration",
+        }),
+        serviceLd({
+          name: "AI management, monitoring and training",
+          description:
+            "Monitoring, retraining and cost control through the UniversAIMS platform, with team training and monthly ROI reviews.",
+          path: "/services#partnership",
+          type: "AI managed services",
+        }),
+        breadcrumbLd([{ name: "Services", path: "/services" }]),
+      ],
+    }),
   component: ServicesPage,
 });
 
-const SERVICE_PHASES = [
+const PHASES = [
   {
     id: "discovery",
-    n: "01",
-    tag: "PHASE 01",
-    title: "Phase 01 — Discovery",
-    tagline: "We diagnose to discover root causes which direct us to the right AI solutions.",
-    poweredBy: "Powered by UniversAIDS (Univers-Artificial Intelligence Discovery System)",
+    name: "Discover",
+    field: "paper",
+    Icon: IconDiscover,
+    iconVars: { "--icon-fill": "var(--sky)", "--icon-bg": "var(--paper)" },
+    tagline:
+      "We find the root cause first, because that tells us which AI system is worth building.",
     intro:
-      "Most AI initiatives fail because companies build software for symptoms instead of systemic root causes. In Phase 01, our consultants conduct in-depth operational audits across your departments, ingesting interviews, SOPs, and complex reconciliation spreadsheets into UniversAIDS to map organizational friction with mathematical evidence.",
+      "Most AI projects fail because they automate a symptom. Our consultants audit your departments, then load interviews, SOPs and reconciliation spreadsheets into UniversAIDS, which links each problem to the evidence behind it.",
     capabilities: [
-      {
-        title: "Cross-Departmental Operational Audits",
-        desc: "Ingest and analyze process maps, departmental SOPs, and spreadsheet trackers to detect workarounds.",
-      },
-      {
-        title: "Stakeholder & Front-Line Discovery Interviews",
-        desc: "Structured qualitative discovery sessions with team leads to surface hidden operational friction.",
-      },
-      {
-        title: "Topological Friction & Bottleneck Mapping",
-        desc: "Leverage UniversAIDS to visualize inter-departmental dependencies, data silos, and systemic choke points.",
-      },
-      {
-        title: "KPI-Based Success & ROI Modeling",
-        desc: "Establish verified baseline metrics (cycle times, error rates, financial leakage) and forecast tangible ROI.",
-      },
-      {
-        title: "Targeted AI Solution Blueprint",
-        desc: "Deliver a boardroom-ready intervention roadmap specifying the exact custom AI systems needed.",
-      },
-      {
-        title: "Executive Readiness & Governance Advisory",
-        desc: "Advising C-suite leadership on sovereign data protocols, risk minimization, and change management.",
-      },
+      [
+        "Operational audits",
+        "Process maps, SOPs and spreadsheet trackers, read across departments to find the workarounds.",
+      ],
+      [
+        "Front-line interviews",
+        "Structured sessions with the people who do the work, where the real friction surfaces.",
+      ],
+      [
+        "Bottleneck mapping",
+        "UniversAIDS shows which departments, systems and data silos depend on each other, and where they jam.",
+      ],
+      [
+        "Baselines and ROI model",
+        "Cycle times, error rates and money leaking today, so the return can be measured later.",
+      ],
+      [
+        "Solution blueprint",
+        "A plan your board can approve, naming the exact systems to build and in what order.",
+      ],
+      [
+        "Readiness and governance",
+        "Advice to leadership on data protection, risk and how to bring staff along.",
+      ],
     ],
     deliverables: [
-      "UniversAIDS Topological Friction Map",
-      "Executive ROI & Financial Payback Model",
-      "Targeted AI System Architecture Blueprint",
-      "Department Readiness & Risk Assessment",
+      "UniversAIDS bottleneck map",
+      "ROI and payback model",
+      "System architecture blueprint",
+      "Readiness and risk assessment",
     ],
-    cta: "Schedule a Phase 01 Discovery Consultation",
+    cta: "Book a discovery consultation",
   },
   {
     id: "implementation",
-    n: "02",
-    tag: "PHASE 02",
-    title: "Phase 02 — Implementation",
-    tagline: "We engineer custom, enterprise-grade AI systems that integrate directly into your workflows.",
-    poweredBy: "Bespoke Multi-Agent Architecture, RAG & Native Core System Connectors",
+    name: "Implement",
+    field: "navy",
+    Icon: IconImplement,
+    iconVars: { "--icon-fill": "var(--blue)", "--icon-bg": "var(--navy)" },
+    tagline:
+      "We build the system into the tools your team already uses, and test it before anyone depends on it.",
     intro:
-      "Once root causes are diagnosed, our engineering team designs, builds, and deploys custom AI systems tailored specifically to your data ecosystem. We don't deploy generic wrappers; we build bespoke intelligent pipelines that integrate seamlessly with your ERP, POS, CRM, and internal databases.",
+      "Once the cause is clear, our engineers design, build and deploy a system for your data. No generic wrappers: pipelines that read and write to your ERP, POS, CRM and databases.",
     capabilities: [
-      {
-        title: "Custom LLM & Multi-Agent Development",
-        desc: "Domain-specific agentic pipelines, reasoning loops, and fine-tuned models engineered for high accuracy.",
-      },
-      {
-        title: "Enterprise RAG & Knowledge Automation",
-        desc: "Secure vector retrieval pipelines operating over contracts, regulatory filings, and complex company manuals.",
-      },
-      {
-        title: "Core Enterprise System Integration",
-        desc: "Bi-directional connectors for SAP, Microsoft Dynamics, Salesforce, Odoo, custom POS systems, and core banking rails.",
-      },
-      {
-        title: "Intelligent Workflow & Reconciler Automation",
-        desc: "Automated data extraction and cross-checking replacing manual multi-tab spreadsheet reconciliations.",
-      },
-      {
-        title: "Predictive Decision Support Engines",
-        desc: "Algorithmic intelligence for inventory replenishment, fraud triage, tenant scoring, and credit risk.",
-      },
-      {
-        title: "Computer Vision & OCR Document Pipelines",
-        desc: "Automated extraction and classification of physical waybills, receipts, invoices, and legal documentation.",
-      },
+      [
+        "Custom models and agents",
+        "Pipelines and fine-tuned models built for your domain and checked for accuracy.",
+      ],
+      [
+        "Search over your documents",
+        "Secure retrieval over contracts, regulatory filings and manuals, with sources cited.",
+      ],
+      [
+        "Core system connectors",
+        "Two-way links to SAP, Microsoft Dynamics, Salesforce, Odoo, custom POS and core banking.",
+      ],
+      [
+        "Reconciliation automation",
+        "Extraction and cross-checking that replaces multi-tab spreadsheet reconciliations.",
+      ],
+      ["Decision support", "Forecasts for stock, fraud triage, tenant scoring and credit risk."],
+      ["Document reading", "Waybills, receipts, invoices and legal papers read, sorted and filed."],
     ],
     deliverables: [
-      "Production-Ready Custom AI System",
-      "Bi-Directional ERP / POS / CRM Connectors",
-      "Rigorous Test Suites & Fallback Guardrails",
-      "Staff Operational UI & Workflow Dashboard",
+      "A production AI system",
+      "ERP, POS or CRM connectors",
+      "Test suites and fallbacks",
+      "A working screen for your staff",
     ],
-    cta: "Inquire About Phase 02 Implementation",
+    cta: "Ask about implementation",
   },
   {
     id: "partnership",
-    n: "03",
-    tag: "PHASE 03",
-    title: "Phase 03 — Partnership",
-    tagline: "We partner long-term to ensure systems remain reliable, optimized, and delivering measurable ROI.",
-    poweredBy: "Powered by UniversAIMS (Univers-Artificial Intelligence Management System)",
+    name: "Partner",
+    field: "sky",
+    Icon: IconPartner,
+    iconVars: { "--icon-fill": "var(--paper)", "--icon-bg": "var(--sky)" },
+    tagline: "We stay after launch, so the system keeps working and keeps paying for itself.",
     intro:
-      "We believe deployment is only the beginning of value creation. In Phase 03, UniversAI acts as your dedicated long-term partner. We monitor and manage deployed systems using our proprietary UniversAIMS software, optimize token costs, conduct intensive team capacity building, and align ongoing performance with your business growth.",
+      "Deployment is the start. We run what we built with UniversAIMS, our monitoring software: we watch it, keep its costs down, retrain it as your business changes and train the people who use it.",
     capabilities: [
-      {
-        title: "24/7 AI Telemetry & Observability via UniversAIMS",
-        desc: "Continuous surveillance of inference uptime, response latency, semantic drift, and error spikes.",
-      },
-      {
-        title: "Team Training & Capacity Building",
-        desc: "Role-specific training cohorts and hands-on workshops ensuring your team adopts and masters the new systems.",
-      },
-      {
-        title: "Token Optimization & Quota Lifecycle Management",
-        desc: "Prompt caching and intelligent routing reducing API burn rates, alongside automated vendor re-subscription.",
-      },
-      {
-        title: "Drift Mitigation & Model Retraining",
-        desc: "Continuous model updates and tuning as your business patterns, customer queries, and products evolve.",
-      },
-      {
-        title: "Vendor Change & Upstream Deprecation Absorption",
-        desc: "Our engineers immediately handle upstream API changes, schema breakages, or vendor updates with zero client downtime.",
-      },
-      {
-        title: "Monthly Board-Grade KPI Reviews",
-        desc: "Regular executive strategy reviews reconciling audited time savings, cost reductions, and identifying new opportunities.",
-      },
+      [
+        "Monitoring around the clock",
+        "Uptime, response time, accuracy drift and error spikes, watched in UniversAIMS.",
+      ],
+      ["Team training", "Role-by-role workshops so your people use the system and trust it."],
+      [
+        "Cost control",
+        "Caching and routing that cut token spend, and renewals handled before quotas run out.",
+      ],
+      ["Retraining", "Models updated as your customers, products and processes change."],
+      [
+        "Vendor changes absorbed",
+        "When an upstream API changes or breaks, we fix it before you notice.",
+      ],
+      [
+        "Monthly reviews",
+        "Time saved, cost cut and the next opportunity, reviewed with leadership each month.",
+      ],
     ],
     deliverables: [
-      "Live UniversAIMS Telemetry & Management Access",
-      "Front-Line Team Training Modules & Playbooks",
-      "Continuous Model Fine-Tuning & Patching",
-      "Monthly Executive ROI & Performance Statements",
+      "Access to UniversAIMS reports",
+      "Training modules and playbooks",
+      "Ongoing tuning and patches",
+      "A monthly ROI statement",
     ],
-    cta: "Discuss Long-Term Partnership Models",
+    cta: "Discuss a partnership",
   },
-];
+] as const;
 
 function ServicesPage() {
-  const [activeTab, setActiveTab] = useState("discovery");
-
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash && SERVICE_PHASES.some((p) => p.id === hash)) {
-        setActiveTab(hash);
-        setTimeout(() => {
-          document.getElementById("phase-details")?.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 50);
-      }
-    };
-    handleHash();
-    window.addEventListener("hashchange", handleHash);
-    return () => window.removeEventListener("hashchange", handleHash);
-  }, []);
-
-  const activePhase = SERVICE_PHASES.find((p) => p.id === activeTab) || SERVICE_PHASES[0];
-
   return (
     <SiteLayout>
-      {/* Hero */}
-      <section className="relative pt-40 pb-20 overflow-hidden bg-hero text-center">
-        <GradientOrbs />
-        <div className="absolute inset-0 grain pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6">
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 mb-6 animate-fade-in">
-            <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-primary-glow">
-              Consulting Methodology
-            </span>
-          </div>
-          <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] mb-8 animate-fade-up">
-            Diagnose. Build. <br />
-            <span className="text-gradient">Partner Long-Term.</span>
+      <section data-field="mist" className="field-mist">
+        <div className="wrap min-h-[70svh] flex flex-col justify-end pt-[calc(var(--header-h)+48px)] pb-14">
+          <h1 className="t-5" data-rise>
+            Our services
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed animate-fade-up" style={{ animationDelay: "0.15s" }}>
-            We diagnose to discover the root cause, which directs us to the right AI solutions to intervene with. 
-            After engineering, we stick with and partner with our clients to ensure sustained, measurable ROI.
+          <p className="statement mt-8" data-rise style={{ ["--i" as string]: 1 }}>
+            From diagnosis to long-term partnership, we help organisations put AI where it creates
+            measurable value, and keep it there.
           </p>
+          <nav
+            aria-label="Phases"
+            className="flex flex-wrap gap-2 mt-10"
+            data-rise
+            style={{ ["--i" as string]: 2 }}
+          >
+            {PHASES.map((p) => (
+              <a key={p.id} href={`#${p.id}`} className="btn btn-sm btn-paper">
+                {p.name}
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
 
-      {/* 3 Phases Selector */}
-      <section id="phase-details" className="relative pb-24 scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-3 gap-4 mb-12">
-            {SERVICE_PHASES.map((p) => {
-              const isSelected = activeTab === p.id;
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => setActiveTab(p.id)}
-                  className={`p-6 rounded-3xl border text-left transition-all flex flex-col justify-between ${
-                    isSelected
-                      ? "border-primary bg-surface shadow-xl"
-                      : "border-border/70 bg-surface/30 hover:border-border hover:bg-surface/50"
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-4">
-                      <span className={`font-mono text-xs font-semibold ${isSelected ? "text-primary-glow" : "text-muted-foreground"}`}>
-                        {p.tag}
-                      </span>
-                      {isSelected && (
-                        <span className="h-2 w-2 rounded-full bg-primary-glow animate-ping" />
-                      )}
-                    </div>
-                    <h3 className="font-display text-xl font-medium text-foreground mb-2">
-                      {p.title}
-                    </h3>
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-4 truncate">
-                    {p.poweredBy}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+      <IndustryStrip
+        title="One method, eight industries"
+        sentence="The same three phases run in every one of our industry arms, each named after a planet, with benchmarks and playbooks of its own."
+      />
 
-          {/* Active Phase Full Detail View */}
-          <div className="rounded-3xl border border-border/80 bg-card-gradient p-8 md:p-12 shadow-2xl relative overflow-hidden">
-            <div className="max-w-3xl mb-12">
-              <div className="inline-block text-xs font-mono text-primary-glow font-semibold uppercase tracking-wider mb-2">
-                {activePhase.poweredBy}
-              </div>
-              <h2 className="font-display text-3xl md:text-4xl font-light text-foreground mb-4">
-                {activePhase.title}
-              </h2>
-              <p className="text-base md:text-lg text-foreground/90 font-medium mb-4 leading-relaxed">
-                {activePhase.tagline}
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {activePhase.intro}
-              </p>
-            </div>
-
-            {/* Capabilities Grid */}
-            <div className="mb-12">
-              <h4 className="text-xs uppercase tracking-widest font-semibold text-muted-foreground mb-6">
-                Key Deliverables & Methodological Focus
-              </h4>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {activePhase.capabilities.map((c, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-surface/50 border border-border/60">
-                    <h5 className="font-display text-base font-medium text-foreground mb-2">
-                      {c.title}
-                    </h5>
-                    <p className="text-xs text-muted-foreground leading-relaxed">
-                      {c.desc}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Deliverables Banner */}
-            <div className="pt-8 border-t border-border/60 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
-              <div>
-                <span className="text-xs uppercase tracking-wider font-semibold text-primary-glow block mb-3">
-                  Verified Outputs & Engagements
-                </span>
-                <div className="flex flex-wrap gap-3">
-                  {activePhase.deliverables.map((d, i) => (
-                    <span
-                      key={i}
-                      className="inline-flex items-center gap-1.5 rounded-xl bg-background/80 border border-border px-3 py-1.5 text-xs text-foreground font-mono"
-                    >
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
-                      {d}
-                    </span>
-                  ))}
+      {PHASES.map((p, i) => (
+        <section
+          key={p.id}
+          id={p.id}
+          data-field={p.field}
+          className={`field-${p.field} scroll-mt-0`}
+        >
+          <div className="wrap py-28 md:py-36">
+            <div className="grid-12 gap-y-8 items-end">
+              <div
+                className={`col-span-12 md:col-span-6 ${i === 1 ? "md:order-2 md:col-start-7" : ""}`}
+              >
+                <div style={p.iconVars as React.CSSProperties} data-reveal>
+                  <p.Icon size={112} strokeWidth={1.3} />
                 </div>
+                <h2 className="t-5 mt-6" data-reveal>
+                  {p.name}
+                </h2>
               </div>
+              <div className={`col-span-12 md:col-span-6 ${i === 1 ? "md:order-1" : ""}`}>
+                <p className="statement" data-reveal>
+                  {p.tagline}
+                </p>
+                <p className="t-2 mt-5 max-w-[56ch]" data-reveal>
+                  {p.intro}
+                </p>
+              </div>
+            </div>
 
-              <div className="shrink-0">
-                <CTAButton to="/work-with-us">{activePhase.cta}</CTAButton>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10 mt-20">
+              {p.capabilities.map(([t, d], j) => (
+                <div key={t} data-reveal style={{ ["--i" as string]: j % 3 }}>
+                  <h3 className="t-3">{t}</h3>
+                  <p className="t-2 soft mt-2">{d}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid-12 gap-y-8 mt-20 items-end">
+              <div className="col-span-12 md:col-span-8" data-reveal>
+                <h3 className="t-1 font-semibold">What you get</h3>
+                <ul className="mt-4 grid sm:grid-cols-2 gap-x-8 gap-y-3">
+                  {p.deliverables.map((d) => (
+                    <li key={d} className="flex items-start gap-3 t-2 font-medium">
+                      <CheckGlyph
+                        className="mt-1 shrink-0"
+                        style={{ color: p.field === "navy" ? "var(--green)" : "var(--blue)" }}
+                      />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="col-span-12 md:col-span-4 md:justify-self-end" data-reveal>
+                <Link to="/work-with-us" className="btn">
+                  {p.cta} <ArrowRight className="btn-arrow" />
+                </Link>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ))}
 
-      {/* Phase 03 Deep Dive (AIMS Feature Matrix) */}
-      <AIMSFeatureMatrix />
+      <ClosingCTA
+        lines={["Start with", "the cause."]}
+        sentence="Every engagement opens with discovery. Book a consultation and we'll scope it with you."
+      />
     </SiteLayout>
   );
 }
