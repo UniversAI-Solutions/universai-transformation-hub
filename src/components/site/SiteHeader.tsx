@@ -306,7 +306,7 @@ export function SiteHeader() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            WhatsApp +234 815 712 4750
+            Front desk: +234 815 712 4750
           </a>
         </nav>
       )}

@@ -187,7 +187,7 @@ function WorkWithUsPage() {
                 ["--icon-bg" as string]: "var(--deep)",
               }}
             >
-              <ContactRow Icon={IconChat} label="WhatsApp, fastest">
+              <ContactRow Icon={IconChat} label="Front desk">
                 <a
                   href={WHATSAPP}
                   target="_blank"
@@ -312,7 +312,7 @@ function WorkWithUsPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      message us on WhatsApp
+                      contact our front desk
                     </a>
                     .
                   </p>

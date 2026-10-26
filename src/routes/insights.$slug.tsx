@@ -121,7 +121,6 @@ function InsightPage() {
               large
               className="aspect-[16/9] md:aspect-[21/9] rounded-[var(--radius)]"
             />
-            {a.cover.kind === "photo" && <p className="t-1 soft mt-3">{a.cover.credit}</p>}
           </div>
         </header>
 

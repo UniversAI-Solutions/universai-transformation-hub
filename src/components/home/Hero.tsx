@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight } from "@/components/site/icons";
-import earth from "@/assets/planets/earth-large.webp";
-import lagos from "@/assets/found/ikoyi-lagos-nigeria.webp";
-import abuja from "@/assets/found/abuja-street.webp";
-import classroom from "@/assets/found/a-classroom-of-students-7138907393.webp";
+import heroTransformation from "@/assets/impact/hero-transformation.webp";
+import caseFinance from "@/assets/impact/case-finance-budgeting.webp";
+import caseHiring from "@/assets/impact/case-hiring-talent.webp";
+import caseLearning from "@/assets/impact/case-adaptive-learning.webp";
 
 /*
-  After the heroes of established consultancies: full-bleed photography, one claim at a time,
-  and tabs along the bottom that turn through the firm and its three services. Each slide says
-  what we can do for a client; the photographs show the places we work, not clients.
+  Corporate consultancy hero: full-bleed photography, one claim at a time,
+  and tabs along the bottom that turn through the firm and its three services.
 */
 
 type Slide = {
@@ -19,7 +18,6 @@ type Slide = {
   body: string;
   image: string;
   pos: string;
-  credit: string;
   hash?: string;
   ctaLabel: string;
 };
@@ -30,9 +28,8 @@ const SLIDES: Slide[] = [
     label: "AI consulting and transformation",
     title: "AI transformation that starts with the root cause",
     body: "We help organisations across Nigeria find what is really holding their operations back, build AI systems that fit how they work, and keep those systems delivering measurable value.",
-    image: earth,
-    pos: "50% 38%",
-    credit: "Africa from Apollo 17, NASA, public domain",
+    image: heroTransformation,
+    pos: "50% 50%",
     ctaLabel: "Book a consultation",
   },
   {
@@ -40,9 +37,8 @@ const SLIDES: Slide[] = [
     label: "Discovery",
     title: "See your operation as it really runs",
     body: "Our consultants and the UniversAIDS platform trace every bottleneck to its source, so you invest in the fix that matters most and can prove its return.",
-    image: abuja,
-    pos: "50% 70%",
-    credit: "Abuja. Photo: AdastralNg22, CC BY-SA 4.0",
+    image: caseFinance,
+    pos: "50% 40%",
     hash: "discovery",
     ctaLabel: "Explore Discovery",
   },
@@ -51,9 +47,8 @@ const SLIDES: Slide[] = [
     label: "Implementation",
     title: "AI inside the systems you run",
     body: "Custom models, agents and connectors for your ERP, POS, CRM and core banking platforms, tested against real cases before your teams depend on them.",
-    image: lagos,
-    pos: "50% 60%",
-    credit: "Ikoyi, Lagos. Photo: Reginald Bassey, CC BY-SA 4.0",
+    image: caseHiring,
+    pos: "50% 50%",
     hash: "implementation",
     ctaLabel: "Explore Implementation",
   },
@@ -62,9 +57,8 @@ const SLIDES: Slide[] = [
     label: "Partnership",
     title: "Value that compounds after launch",
     body: "Monitoring, retraining and cost control through UniversAIMS, with training for your teams and monthly reviews that keep every system accurate, affordable and adopted.",
-    image: classroom,
+    image: caseLearning,
     pos: "50% 45%",
-    credit: "A Nigerian classroom. Photo: DFID, CC BY-SA 2.0",
     hash: "partnership",
     ctaLabel: "Explore Partnership",
   },
@@ -138,7 +132,6 @@ export function Hero() {
 
       {/* tabs, after Seismic's: each fills while its slide is up */}
       <div className="relative wrap w-full pb-6">
-        <p className="t-1 text-[#aeb9d1] mb-4 hidden md:block text-right">{s.credit}</p>
         <div role="tablist" aria-label="Choose a slide" className="grid grid-cols-4 gap-3 md:gap-6">
           {SLIDES.map((sl, k) => (
             <button

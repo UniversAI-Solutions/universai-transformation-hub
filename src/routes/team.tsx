@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ClosingCTA } from "@/components/site/ClosingCTA";
 import { FounderPicker } from "@/components/site/FounderPicker";
-import abujaImg from "@/assets/found/abuja-street.webp";
+import teamStrategyImg from "@/assets/impact/team-strategy-session.webp";
 import { abs, breadcrumbLd, FOUNDERS_LD, ORG_ID, seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/team")({
@@ -55,17 +55,13 @@ function TeamPage() {
           >
             <div className="overflow-hidden">
               <img
-                src={abujaImg}
-                alt="A busy Abuja road: street lamps, traffic and traders carrying produce"
+                src={teamStrategyImg}
+                alt="UniversAI leadership and engineering team in an AI strategy session"
                 width={1600}
-                height={758}
+                height={900}
                 className="w-full aspect-[4/3] object-cover drift"
               />
             </div>
-            <figcaption className="t-1 soft mt-2">
-              Federal Capital Territory, Nigeria. Photo: AdastralNg22, CC BY-SA 4.0, via Wikimedia
-              Commons
-            </figcaption>
           </figure>
         </div>
       </section>

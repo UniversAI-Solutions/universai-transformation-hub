@@ -8,7 +8,7 @@ import { CASE_LIST } from "@/data/case-studies";
 export type CaseStudyData = {
   slug: string;
   label: string;
-  hero: { title: string; intro: string; image: string; imageAlt: string; imageCredit: string };
+  hero: { title: string; intro: string; image: string; imageAlt: string };
   snapshot: { label: string; value: string }[];
   challenge: { intro: string; bullets: string[]; outro: string };
   approach: {
@@ -47,7 +47,6 @@ export function CaseStudyPage({ data }: { data: CaseStudyData }) {
               className="w-full aspect-[4/3] md:aspect-[21/9] object-cover drift"
             />
           </div>
-          <figcaption className="t-1 soft mt-3">{data.hero.imageCredit}</figcaption>
         </figure>
       </section>
 

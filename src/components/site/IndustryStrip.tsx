@@ -20,7 +20,7 @@ export function IndustryStrip({ title, sentence }: { title: string; sentence: st
             <li key={p.planet} data-reveal style={{ ["--i" as string]: i % 4 }}>
               <img
                 src={p.image}
-                alt={`${p.planet}. Photograph: ${p.imageCredit}`}
+                alt={`${p.name} (${p.planet} arm)`}
                 width={160}
                 height={160}
                 loading="lazy"

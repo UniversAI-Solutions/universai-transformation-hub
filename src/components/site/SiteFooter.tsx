@@ -72,7 +72,7 @@ export function SiteFooter() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  WhatsApp +234 815 712 4750
+                  Front desk: +234 815 712 4750
                 </a>
               </p>
             </address>
@@ -80,41 +80,8 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 pt-8 bg-[#111c31] -mx-[var(--margin)] px-[var(--margin)] pb-2 rounded-[var(--radius)]">
-          <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 t-1 soft pb-6">
-            <p className="shrink-0">© {new Date().getFullYear()} UniversAI Solutions Ltd.</p>
-            <p className="max-w-[80ch] md:text-right">
-              Photographs: planets by NASA, JPL-Caltech, JHUAPL and the Apollo 17 crew (public
-              domain);{" "}
-              <a
-                className="link-on"
-                href="https://commons.wikimedia.org/w/index.php?curid=79988917"
-              >
-                Ikoyi, Lagos
-              </a>{" "}
-              by Reginald Bassey and{" "}
-              <a
-                className="link-on"
-                href="https://commons.wikimedia.org/w/index.php?curid=124258673"
-              >
-                Abuja
-              </a>{" "}
-              by AdastralNg22 (
-              <a className="link-on" href="https://creativecommons.org/licenses/by-sa/4.0/">
-                CC BY-SA 4.0
-              </a>
-              );{" "}
-              <a
-                className="link-on"
-                href="https://commons.wikimedia.org/w/index.php?curid=26240400"
-              >
-                a classroom
-              </a>{" "}
-              by DFID (
-              <a className="link-on" href="https://creativecommons.org/licenses/by-sa/2.0/">
-                CC BY-SA 2.0
-              </a>
-              ), via Wikimedia Commons. They show where our clients work, not the clients.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 t-1 soft pb-6">
+            <p className="shrink-0">© {new Date().getFullYear()} UniversAI Solutions Ltd. All rights reserved.</p>
           </div>
         </div>
       </div>

@@ -94,7 +94,7 @@ function IndustriesPage() {
               <div className="col-span-12 lg:col-span-5 flex items-start gap-6" data-reveal>
                 <img
                   src={p.image}
-                  alt={`${p.planet}. Photograph: ${p.imageCredit}, public domain`}
+                  alt={`${p.name} (${p.planet} arm)`}
                   width={144}
                   height={144}
                   loading="lazy"

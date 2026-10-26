@@ -149,8 +149,8 @@ function IndustryPage() {
                 height={320}
                 className="w-48 h-48 md:w-72 md:h-72 rounded-full mix-blend-screen drift"
               />
-              <figcaption className="t-1 soft mt-4">
-                The {i.planet} arm. Photograph: {i.imageCredit}, public domain.
+              <figcaption className="t-1 soft mt-4 text-center lg:text-right">
+                The {i.planet} arm
               </figcaption>
             </figure>
           </div>

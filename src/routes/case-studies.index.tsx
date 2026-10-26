@@ -33,9 +33,6 @@ function CaseStudiesIndex() {
               height={1200}
               className="w-full aspect-square mix-blend-screen drift"
             />
-            <figcaption className="t-1 soft mt-2 lg:hidden">
-              Africa from Apollo 17, 1972. NASA, public domain.
-            </figcaption>
           </figure>
           <div className="col-span-12 lg:col-span-6 relative">
             <h1 className="t-5" data-rise>
@@ -44,9 +41,6 @@ function CaseStudiesIndex() {
             <p className="statement mt-8" data-rise style={{ ["--i" as string]: 1 }}>
               How we help organisations across Nigeria remove manual work, sharpen decisions and
               turn AI into measurable results.
-            </p>
-            <p className="t-1 soft mt-8 hidden lg:block">
-              Africa from Apollo 17, 1972. NASA, public domain.
             </p>
           </div>
         </div>
@@ -76,7 +70,6 @@ function CaseStudiesIndex() {
                     className="w-full aspect-[4/3] lg:aspect-[16/10] object-cover transition-transform duration-700 ease-out hover:scale-[1.03]"
                   />
                 </Link>
-                <p className="t-1 soft mt-2">{cs.hero.imageCredit}</p>
               </div>
               <div
                 className={`col-span-12 lg:col-span-5 ${i % 2 ? "lg:order-1 lg:col-start-1" : "lg:col-start-8"}`}

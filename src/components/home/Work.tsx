@@ -48,9 +48,6 @@ export function Work() {
                       loading="lazy"
                       className="w-full aspect-[16/9] lg:aspect-[16/10] object-cover"
                     />
-                    <figcaption className="hidden md:block t-1 soft mt-2">
-                      {CASE_STUDIES[c.slug].hero.imageCredit}
-                    </figcaption>
                   </figure>
                   <div className="col-span-12 lg:col-start-8 lg:col-span-5">
                     <h3 className="t-4">{c.title}</h3>

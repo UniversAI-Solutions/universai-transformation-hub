@@ -1,6 +1,6 @@
-import lagos from "@/assets/found/ikoyi-lagos-nigeria.webp";
-import abuja from "@/assets/found/abuja-street.webp";
-import classroom from "@/assets/found/a-classroom-of-students-7138907393.webp";
+import caseHiring from "@/assets/impact/case-hiring-talent.webp";
+import caseFinance from "@/assets/impact/case-finance-budgeting.webp";
+import caseLearning from "@/assets/impact/case-adaptive-learning.webp";
 
 /*
   UniversAI Insights. Long-form pieces on the firm's platforms (UniversAIDS, UniversAIMS) and the
@@ -21,7 +21,7 @@ export type Block =
 export type Cover =
   | { kind: "aids" }
   | { kind: "aims" }
-  | { kind: "photo"; src: string; alt: string; credit: string; pos?: string }
+  | { kind: "photo"; src: string; alt: string; credit?: string; pos?: string }
   | {
       kind: "icon";
       icon:
@@ -521,10 +521,9 @@ export const INSIGHTS: Insight[] = [
     dek: "You cannot prove a return you did not measure the starting point for. Here is how we set baselines in Discovery.",
     cover: {
       kind: "photo",
-      src: abuja,
-      alt: "A busy Abuja road: street lamps, traffic and traders carrying produce",
-      credit: "Abuja. Photo: AdastralNg22, CC BY-SA 4.0, via Wikimedia Commons",
-      pos: "50% 70%",
+      src: caseFinance,
+      alt: "Corporate finance executives and analysts analyzing predictive budgeting dashboards and ROI baselines",
+      pos: "50% 40%",
     },
     related: ["automating-the-symptom", "universaims-after-go-live", "token-costs-under-control"],
     body: [
@@ -595,10 +594,9 @@ export const INSIGHTS: Insight[] = [
     dek: "Most value is lost at the edges between systems. That is where we build.",
     cover: {
       kind: "photo",
-      src: lagos,
-      alt: "Ikoyi, Lagos, seen from above, with towers on the lagoon behind",
-      credit: "Ikoyi, Lagos. Photo: Reginald Bassey, CC BY-SA 4.0, via Wikimedia Commons",
-      pos: "50% 60%",
+      src: caseHiring,
+      alt: "Technology engineers and consultants collaborating on enterprise software pipelines",
+      pos: "50% 50%",
     },
     related: ["automating-the-symptom", "universaims-after-go-live", "inside-universaids"],
     body: [
@@ -651,9 +649,8 @@ export const INSIGHTS: Insight[] = [
     dek: "A system nobody uses returns nothing. Training and trust are part of the build, not an afterthought.",
     cover: {
       kind: "photo",
-      src: classroom,
-      alt: "A classroom of students at laboratory benches in Nigeria",
-      credit: "A Nigerian classroom. Photo: DFID, CC BY-SA 2.0, via Wikimedia Commons",
+      src: caseLearning,
+      alt: "Professionals and learners engaged in interactive digital technology workflows",
       pos: "50% 45%",
     },
     related: [

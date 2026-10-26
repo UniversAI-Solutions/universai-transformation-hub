@@ -1,6 +1,6 @@
-import photoLagos from "@/assets/found/ikoyi-lagos-nigeria.webp";
-import photoAbuja from "@/assets/found/abuja-street.webp";
-import photoClassroom from "@/assets/found/a-classroom-of-students-7138907393.webp";
+import caseHiring from "@/assets/impact/case-hiring-talent.webp";
+import caseFinance from "@/assets/impact/case-finance-budgeting.webp";
+import caseLearning from "@/assets/impact/case-adaptive-learning.webp";
 import type { CaseStudyData } from "@/components/site/CaseStudyLayout";
 
 export const CASE_STUDIES: Record<string, CaseStudyData> = {
@@ -11,11 +11,9 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
       title: "Hiring at the speed of growth",
       intro:
         "A fast-growing Lagos-based technology company faced mounting pressure to scale its workforce while maintaining hiring quality. With applications increasing rapidly, their recruitment process became a bottleneck to growth.",
-      image: photoLagos,
+      image: caseHiring,
       imageAlt:
-        "Ikoyi, Lagos, seen from above: low-rise homes among trees, towers on the lagoon behind",
-      imageCredit:
-        "Ikoyi, Lagos, where the client is based. Photo: Reginald Bassey, CC BY-SA 4.0, via Wikimedia Commons",
+        "Tech recruitment team collaborating in a modern Lagos office reviewing AI talent screening metrics",
     },
     snapshot: [
       { label: "Industry", value: "Technology / SaaS" },
@@ -110,10 +108,8 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
       title: "A budget that looks ahead",
       intro:
         "A government-affiliated organization responsible for managing large-scale public funds struggled with fragmented financial data and inefficient planning processes.",
-      image: photoAbuja,
-      imageAlt: "A busy Abuja road: street lamps, traffic and traders carrying produce",
-      imageCredit:
-        "A road in Abuja, where the client is based. Photo: AdastralNg22, CC BY-SA 4.0, via Wikimedia Commons",
+      image: caseFinance,
+      imageAlt: "Finance executives and analysts reviewing automated predictive budgeting dashboards in Abuja",
     },
     snapshot: [
       { label: "Industry", value: "Public Sector / Finance" },
@@ -202,11 +198,9 @@ export const CASE_STUDIES: Record<string, CaseStudyData> = {
       title: "Lessons that adapt",
       intro:
         "A Nigerian EdTech platform aimed to deliver personalized learning experiences but struggled to scale content creation and student engagement.",
-      image: photoClassroom,
+      image: caseLearning,
       imageAlt:
-        "Students in white headscarves at laboratory benches in a bright Nigerian classroom",
-      imageCredit:
-        "A secondary school classroom in Nigeria, not the client's. Photo: DFID, CC BY-SA 2.0, via Wikimedia Commons",
+        "Students and professionals using interactive adaptive AI learning software in a modern tech center",
     },
     snapshot: [
       { label: "Industry", value: "Education / EdTech" },
@@ -290,7 +284,7 @@ export const CASE_LIST = [
     summary:
       "Recruiters were reading CVs for four to six hours a day and still missing good applicants. We mapped the whole hiring process, then built CV scoring, shortlisting and interview booking into the tools the team already used.",
     metric: "60% less time spent screening CVs",
-    image: photoLagos,
+    image: caseHiring,
   },
   {
     slug: "ai-budgeting-planning",
@@ -300,7 +294,7 @@ export const CASE_LIST = [
     summary:
       "Budgets lived in disconnected spreadsheets and reports arrived weeks late. We cleaned and joined the data first, then added forecasting and live spend monitoring for leadership.",
     metric: "70% less time spent producing reports",
-    image: photoAbuja,
+    image: caseFinance,
   },
   {
     slug: "ai-learning-systems",
@@ -310,6 +304,6 @@ export const CASE_LIST = [
     summary:
       "Every student got the same course at the same pace, and content took weeks to write. We built adaptive learning paths, early warnings for stuck students and a generator for quizzes and summaries.",
     metric: "50% less content-creation work",
-    image: photoClassroom,
+    image: caseLearning,
   },
 ];
